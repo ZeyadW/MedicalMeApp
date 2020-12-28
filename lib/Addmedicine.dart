@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'viewreminders.dart';
+import 'Screens/viewreminders.dart';
 
 class Addmedicine extends StatefulWidget {
   @override

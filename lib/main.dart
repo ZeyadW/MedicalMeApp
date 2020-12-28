@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:project_mobile/searchfaq.dart';
-import 'package:project_mobile/viewjournals.dart';
-import '../viewjournals.dart';
-import 'package:project_mobile/journal.dart';
-import '../welcomescreen (1).dart';
-import '../Login.dart';
-import '../contactus.dart';
-import '../journal.dart';
-import '../Home.dart';
-import '../profile.dart';
-import '../searchmedicine.dart';
+import 'package:project_mobile/Screens/searchfaq.dart';
+import 'package:project_mobile/Screens/viewjournals.dart';
+import 'Screens/viewjournals.dart';
+import 'package:project_mobile/Screens/journal.dart';
+import 'Screens/welcomescreen (1).dart';
+import 'Screens/Login.dart';
+import 'Screens/contactus.dart';
+import 'Screens/journal.dart';
+import 'Home.dart';
+import 'Screens/profile.dart';
+import 'Screens/searchmedicine.dart';
 
-import '../viewreminders.dart';
+import 'Screens/viewreminders.dart';
 
 void main() => runApp(MyApp());
 

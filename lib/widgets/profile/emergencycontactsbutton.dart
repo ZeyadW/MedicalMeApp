@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_mobile/emergencycontact.dart';
+import 'package:project_mobile/Screens/emergencycontact.dart';
 
 class emergencycontactsbutton extends StatelessWidget {
   @override

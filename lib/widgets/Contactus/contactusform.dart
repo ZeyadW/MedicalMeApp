@@ -1,62 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ContactUs extends StatefulWidget {
+class ContactusForm extends StatefulWidget {
   @override
-  _ContactUsState createState() => _ContactUsState();
-}
-
-class _ContactUsState extends State<ContactUs> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Contact Us '),
-        backgroundColor: const Color(0xff68b2a0),
-      ),
-      backgroundColor: const Color(0xffe0ecde),
-      body: SafeArea(
-        child: Container(
-            child: new SingleChildScrollView(
-          child: Column(children: [
-            TitleText(),
-            LoginForm(),
-          ]),
-        )),
-      ),
-    );
+  ContactusFormState createState() {
+    return ContactusFormState();
   }
 }
 
-class TitleText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            '\n\n  Leave Us A Message:',
-            style: TextStyle(
-              fontFamily: 'Montserrat-Bold',
-              fontSize: 21,
-              color: const Color(0xff205072),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class LoginForm extends StatefulWidget {
-  @override
-  LoginFormState createState() {
-    return LoginFormState();
-  }
-}
-
-class LoginFormState extends State<LoginForm> {
+class ContactusFormState extends State<ContactusForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //

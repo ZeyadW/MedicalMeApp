@@ -1,45 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:project_mobile/models/users.dart';
+import 'package:project_mobile/Screens/Login.dart';
 import 'package:project_mobile/Home.dart';
-import 'package:project_mobile/Signup.dart';
-import 'emergencycontact.dart';
-
-class Addemergencycontact extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var Row1 = Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(padding: EdgeInsets.only(top: 50.0)),
-      ],
-    );
-    var Row2 = Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Enter your emergency contact details',
-          style: TextStyle(
-              fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff68b2a0),
-        title: Center(child: Image(image: AssetImage('images/Icon.png'))),
-      ),
-      body: Center(
-          child: Container(
-              child: new SingleChildScrollView(
-        child: Column(
-          children: <Widget>[Row1, Row2, LoginForm()],
-        ),
-      ))),
-    );
-  }
-}
 
 class LoginForm extends StatefulWidget {
   @override
@@ -53,7 +15,7 @@ class LoginFormState extends State<LoginForm> {
   var _passwordVisible;
   @override
   void initState() {
-    _passwordVisible = true;
+    _passwordVisible = false;
     super.initState();
     myFocusNode = FocusNode();
   }
@@ -65,6 +27,19 @@ class LoginFormState extends State<LoginForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
+  static final validCharactersPassword = RegExp(r'^[a-zA-Z0-9_\-=@\.;]+$');
+  Users users = new Users();
+  final usernamecontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+  bool checkuserexist() {
+    User u =
+        users.validatelogin(usernamecontroller.text, passwordcontroller.text);
+    if (u != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +50,20 @@ class LoginFormState extends State<LoginForm> {
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => ViewEmergencyContact()));
+            builder: (context) => HomePage(
+                u: users.validatelogin(
+                    usernamecontroller.text, passwordcontroller.text))));
+      },
+    );
+
+    Widget okButton2 = FlatButton(
+      child: Text(
+        "login again",
+      ),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context)
+            .push(new MaterialPageRoute(builder: (context) => LoginPage()));
       },
     );
     // Build a Form widget using the _formKey created above.
@@ -98,11 +86,12 @@ class LoginFormState extends State<LoginForm> {
               ],
             ),
             child: TextFormField(
+              controller: usernamecontroller,
               autofocus: true,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.perm_identity),
-                  labelText: 'Enter your emergency contact\'s name',
+                  labelText: 'Enter your username',
                   labelStyle: TextStyle(color: Colors.green),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green)),
@@ -112,7 +101,7 @@ class LoginFormState extends State<LoginForm> {
                   )),
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter a name';
+                  return 'Please enter some text';
                 }
                 if (!value.contains(validCharacters)) {
                   return 'Please enter the correct format';
@@ -136,11 +125,26 @@ class LoginFormState extends State<LoginForm> {
               ],
             ),
             child: TextFormField(
-              autofocus: true,
+              controller: passwordcontroller,
+              focusNode: myFocusNode,
+              obscureText: !_passwordVisible,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.add_call),
-                  labelText: 'Enter your emergency contact\'s number',
+                  prefixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                    onPressed: () {
+                      // Update the state i.e. toogle the state of passwordVisible variable
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    },
+                  ),
+                  labelText: 'Enter your password',
                   labelStyle: TextStyle(color: Colors.green),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green)),
@@ -150,9 +154,9 @@ class LoginFormState extends State<LoginForm> {
                   )),
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter a number';
+                  return 'Please enter some text';
                 }
-                if (!value.contains(validCharacters)) {
+                if (!value.contains(validCharactersPassword)) {
                   return 'Please enter the correct format';
                 }
                 ;
@@ -185,21 +189,32 @@ class LoginFormState extends State<LoginForm> {
                   // Validate returns true if the form is valid, or false
                   // otherwise.
                   if (_formKey.currentState.validate()) {
-                    return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text("Emergency Contact added successfully"),
-                          actions: [okButton],
-                        );
-                      },
-                    );
-
+                    if (checkuserexist() == true) {
+                      return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text("Logged in successfully"),
+                            actions: [okButton],
+                          );
+                        },
+                      );
+                    } else {
+                      return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text("wrong username or password"),
+                            actions: [okButton2],
+                          );
+                        },
+                      );
+                    }
                     // If the form is valid, display a Snackbar.
 
                   }
                 },
-                child: Text('Add Emergency Contact'),
+                child: Text('Login'),
               ),
             ),
           )

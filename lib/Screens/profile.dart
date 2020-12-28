@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'EditProfile.dart';
 import 'emergencycontact.dart';
-import 'widgets/profile/editprofilebutton.dart';
-import 'widgets/profile/emergencycontactsbutton.dart';
+import '../widgets/profile/editprofilebutton.dart';
+import '../widgets/profile/emergencycontactsbutton.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

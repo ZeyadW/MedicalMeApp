@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'Signup.dart';
 import 'Login.dart';
-import 'widgets/welcomescreen/welcometitlewidget.dart';
-import 'widgets/welcomescreen/welcomesubtitletext.dart';
-import 'widgets/welcomescreen/welcomeimage.dart';
+import '../widgets/welcomescreen/welcometitlewidget.dart';
+import '../widgets/welcomescreen/welcomesubtitletext.dart';
+import '../widgets/welcomescreen/welcomeimage.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override

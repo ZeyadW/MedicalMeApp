@@ -1,78 +1,50 @@
 import 'package:flutter/material.dart';
-import 'viewjournals.dart';
+import 'package:project_mobile/Screens/emergencycontact.dart';
 
-class Journal extends StatefulWidget {
+class AddemergencycontactForm extends StatefulWidget {
   @override
-  _Journal createState() => _Journal();
-}
-
-class _Journal extends State<Journal> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Journal '),
-        backgroundColor: const Color(0xff68b2a0),
-      ),
-      backgroundColor: const Color(0xffe0ecde),
-      body: SafeArea(
-        child: Container(
-          child: new SingleChildScrollView(
-              child: Column(children: [
-            TitleText(),
-            LoginForm(),
-          ])),
-        ),
-      ),
-    );
+  AddemergencycontactFormState createState() {
+    return AddemergencycontactFormState();
   }
 }
 
-class TitleText extends StatelessWidget {
+class AddemergencycontactFormState extends State<AddemergencycontactForm> {
+  FocusNode myFocusNode;
+  var _passwordVisible;
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            '\n New Journal:',
-            style: TextStyle(
-              fontFamily: 'Montserrat-Bold',
-              fontSize: 21,
-              color: const Color(0xff205072),
-            ),
-          ),
-        ],
-      ),
-    );
+  void initState() {
+    _passwordVisible = true;
+    super.initState();
+    myFocusNode = FocusNode();
   }
-}
 
-class LoginForm extends StatefulWidget {
-  @override
-  LoginFormState createState() {
-    return LoginFormState();
-  }
-}
-
-class LoginFormState extends State<LoginForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
+
   @override
   Widget build(BuildContext context) {
+    Widget okButton = FlatButton(
+      child: Text(
+        "Ok",
+      ),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).push(new MaterialPageRoute(
+            builder: (context) => ViewEmergencyContact()));
+      },
+    );
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(padding: EdgeInsets.fromLTRB(30, 20, 30, 0)),
+          Padding(padding: EdgeInsets.only(top: 20.0)),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(21.0),
@@ -86,10 +58,11 @@ class LoginFormState extends State<LoginForm> {
               ],
             ),
             child: TextFormField(
+              autofocus: true,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 100.0),
-                  labelText: 'Enter diary',
+                  prefixIcon: Icon(Icons.perm_identity),
+                  labelText: 'Enter your emergency contact\'s name',
                   labelStyle: TextStyle(color: Colors.green),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green)),
@@ -99,8 +72,12 @@ class LoginFormState extends State<LoginForm> {
                   )),
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter a name';
                 }
+                if (!value.contains(validCharacters)) {
+                  return 'Please enter the correct format';
+                }
+                ;
                 return null;
               },
             ),
@@ -117,6 +94,30 @@ class LoginFormState extends State<LoginForm> {
                   blurRadius: 34,
                 ),
               ],
+            ),
+            child: TextFormField(
+              autofocus: true,
+              style: TextStyle(color: Colors.green),
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.add_call),
+                  labelText: 'Enter your emergency contact\'s number',
+                  labelStyle: TextStyle(color: Colors.green),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green),
+                    borderRadius: BorderRadius.circular(21.0),
+                  )),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter a number';
+                }
+                if (!value.contains(validCharacters)) {
+                  return 'Please enter the correct format';
+                }
+                ;
+                return null;
+              },
             ),
           ),
           Padding(padding: const EdgeInsets.symmetric(vertical: 5.0)),
@@ -144,16 +145,21 @@ class LoginFormState extends State<LoginForm> {
                   // Validate returns true if the form is valid, or false
                   // otherwise.
                   if (_formKey.currentState.validate()) {
+                    return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text("Emergency Contact added successfully"),
+                          actions: [okButton],
+                        );
+                      },
+                    );
+
                     // If the form is valid, display a Snackbar.
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Data')));
+
                   }
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ViewJournals()),
-                  );
                 },
-                child: Text('Submit'),
+                child: Text('Add Emergency Contact'),
               ),
             ),
           )

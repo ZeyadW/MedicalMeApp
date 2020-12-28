@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'widgets/q&awidgets/titletext.dart';
-import 'widgets/q&awidgets/bodystate.dart';
-import 'widgets/q&awidgets/questions.dart';
+import '../widgets/searchmedicine/Bodystate.dart';
+import '../widgets/searchmedicine/question.dart';
+import '../widgets/searchmedicine/titletext.dart';
 
-class SearchFaq extends StatefulWidget {
+class SearchMed extends StatefulWidget {
   @override
-  _SearchFaqState createState() => _SearchFaqState();
+  _SearchMedState createState() => _SearchMedState();
 }
 
-class _SearchFaqState extends State<SearchFaq> {
+class _SearchMedState extends State<SearchMed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FAQ '),
+        title: Text('Search '),
         backgroundColor: const Color(0xff68b2a0),
       ),
       backgroundColor: const Color(0xffe0ecde),
