@@ -100,88 +100,89 @@ class HomePage extends StatelessWidget {
         ),
       ],
     );
-    return MaterialApp(
-      home: Scaffold(
-          drawer: Drawer(
-            child: ListView(
-              children: <Widget>[
-                ListTile(
-                    title: Text('Home'),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage(u: this.u)),
-                        )),
-                ListTile(
-                    title: Text('Profile'),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfilePage()),
-                        )),
-                /* ListTile(
-                    title: Text('Add Journal'),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Journal()),
-                        )),
-                ListTile(
-                    title: Text('My Reminders'),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ViewReminders()),
-                        )),
-                ListTile(
-                    title: Text('Search for medicine'),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SearchMed()),
-                        )),*/
-                ListTile(
-                    title: Text('FAQ'),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SearchFaq()),
-                        )),
-                ListTile(
-                    title: Text('Contact Us'),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ContactUs()),
-                        )),
-              ],
-            ),
+    return Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              ListTile(
+                  title: Text('Home'),
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomePage(u: this.u)),
+                      )),
+              ListTile(
+                  title: Text('Profile'),
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      )),
+              ListTile(
+                  title: Text('FAQ'),
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchFaq()),
+                      )),
+              ListTile(
+                  title: Text('Contact Us'),
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ContactUs()),
+                      )),
+            ],
           ),
-          appBar: AppBar(
-            title: Text('Home Page'),
-            backgroundColor: const Color(0xff68b2a0),
+        ),
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text('Home Page'),
+              Container(
+                margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(21.0),
+                  color: Colors.red,
+                  boxShadow: [
+                    BoxShadow(
+                        color: const Color(0x36329d9c),
+                        offset: Offset(15, 15),
+                        blurRadius: 40,
+                        spreadRadius: 20),
+                  ],
+                ),
+                child: FlatButton(
+                  child: Text(
+                    "SOS",
+                  ),
+                ),
+              )
+            ],
+          ),
+          backgroundColor: const Color(0xff68b2a0),
 //            title: Center(child: Image(image: AssetImage('images/Icon.png'))),
-          ),
-          body: Center(
-              child: Container(
-            child: ListView(
-                children: ListTile.divideTiles(
-              context: context,
-              tiles: [
-                ListTile(
-                  title: Row1,
-                ),
-                Divider(),
-                ListTile(
-                  title: Row2,
-                ),
-                ListTile(
-                  title: Row3,
-                ),
-                Divider(),
-                ListTile(
-                  title: Row4,
-                ),
-                Divider(),
-              ],
-            ).toList()),
-          ))),
-    );
+        ),
+        body: Center(
+            child: Container(
+          child: ListView(
+              children: ListTile.divideTiles(
+            context: context,
+            tiles: [
+              ListTile(
+                title: Row1,
+              ),
+              Divider(),
+              ListTile(
+                title: Row2,
+              ),
+              ListTile(
+                title: Row3,
+              ),
+              Divider(),
+              ListTile(
+                title: Row4,
+              ),
+              Divider(),
+            ],
+          ).toList()),
+        )));
   }
 }
