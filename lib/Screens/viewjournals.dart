@@ -16,7 +16,7 @@ class ViewJournals extends StatelessWidget {
       body: Column(
         children: [
           addjournalbutton(),
-          listalljournals(),
+          listAllJournals(),
         ],
       ),
     );

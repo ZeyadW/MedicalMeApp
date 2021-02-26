@@ -20,7 +20,6 @@ class _Journal extends State<Journal> {
         child: Container(
           child: new SingleChildScrollView(
               child: Column(children: [
-            TitleText(),
             JournalForm(),
           ])),
         ),

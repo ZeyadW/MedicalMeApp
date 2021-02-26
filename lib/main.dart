@@ -11,7 +11,7 @@ import 'Screens/journal.dart';
 import 'Home.dart';
 import 'Screens/profile.dart';
 import 'Screens/searchmedicine.dart';
-
+import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
 import 'Screens/viewreminders.dart';
 
 void main() => runApp(MyApp());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: WelcomeScreen(),
+      home: ViewJournals(),
       routes: {
         'home': (context) => HomePage(),
         'Contact Us': (context) => ContactUs(),
