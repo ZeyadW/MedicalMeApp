@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_mobile/widgets/Journal/editjournal.dart';
+import 'package:project_mobile/Screens/editjournal.dart';
 
 class listAllJournals extends StatefulWidget {
   @override
@@ -88,7 +90,12 @@ class _listAllJournalState extends State<listAllJournals> {
           padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
           child: FlatButton(
             child: Text(diary.title),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditJournalM()),
+              );
+            },
           ),
         ),
         Padding(
