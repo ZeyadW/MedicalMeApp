@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:project_mobile/Screens/searchfaq.dart';
 import 'package:project_mobile/Screens/viewjournals.dart';
 import 'Screens/viewjournals.dart';
 import 'package:project_mobile/Screens/journal.dart';
-import 'Screens/welcomescreen (1).dart';
-import 'Screens/Login.dart';
+
 import 'Screens/contactus.dart';
 import 'Screens/journal.dart';
 import 'Home.dart';
 import 'Screens/profile.dart';
-import 'Screens/searchmedicine.dart';
-import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
-import 'Screens/viewreminders.dart';
 
 void main() => runApp(MyApp());
 
