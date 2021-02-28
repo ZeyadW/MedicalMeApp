@@ -1,104 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/viewjournals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_mobile/models/diaries.dart' as d;
 
 final db = Firestore.instance;
 
-class Diaries {
-  final text;
-  final title;
-  final diaryid;
-  final timestamp;
-  final DocumentReference reference;
-
-  Diaries({
-    this.text,
-    this.title,
-    this.diaryid,
-    this.timestamp,
-    this.reference,
-  });
-
-  Diaries.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['text'] != null),
-        assert(map['title'] != null),
-        assert(map['timestamp'] != null),
-        text = map['text'],
-        title = map['title'],
-        diaryid = map['diaryid'],
-        timestamp = date;
-  Diaries.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$text:$title:$diaryid>";
-}
-
 class EditJournal extends StatefulWidget {
+  var diary = d.Diaries();
+  EditJournal(d.Diaries dd) {
+    this.diary = dd;
+  }
   @override
   EditJournalState createState() {
-    return EditJournalState();
+    return EditJournalState(this.diary);
   }
 }
 
 DateTime now = new DateTime.now();
 DateTime date = new DateTime(now.year, now.month, now.day);
 
-Future<void> editStudent(textcontroller, titlecontroller) async {
-  var specificDiary = await Firestore.instance
-      .collection('Diaries')
-      .document(titlecontroller.text);
-  specificDiary.get();
-  await db.collection("Diaries").document(titlecontroller.text).updateData({
-    'text': textcontroller.text,
-    'title': titlecontroller.text,
-    'timestamp': date
-  });
-}
-
 class EditJournalState extends State<EditJournal> {
-  Future<bool> UpdateJournal(textcontroller, titlecontroller) async {
-    print("updating journal");
-    print(textcontroller.text);
-    CollectionReference diaries = Firestore.instance.collection('Diaries');
+  var diary; //= d.Diaries();
+  EditJournalState(this.diary);
 
-    Future<void> UpdateJournal() {
-      return diaries
-          .document(titlecontroller.text)
-          .updateData({
-            'title': titlecontroller.text,
-            'text': textcontroller.text,
-            'timestamp': date
-          })
-          .then((value) => print("User Updated"))
-          .catchError((error) => print("Failed to update user: $error"));
-    }
+  Future<bool> UpdateJournal(diary, textcontroller, titlecontroller) async {
+    await Firestore.instance
+        .collection('Diaries')
+        .document(diary.title)
+        .updateData({
+      // 'title': titlecontroller.text,
+      'text': textcontroller.text,
+      'timestamp': date
+    });
+
+    return true;
   }
 
   final textcontroller = TextEditingController();
   final titlecontroller = TextEditingController();
 
-  Widget _buildBody(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('Diaries').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearProgressIndicator();
+  Widget UpdateForm() {
+    print('build');
 
-        return _buildList(context, snapshot.data.documents);
-      },
-    );
-  }
-
-  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    return ListView(
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
-    );
-  }
-
-  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
-    print(data.documentID);
-    print(data);
-    final diary = Diaries.fromSnapshot(data);
+    print('build');
     return Form(
       key: _formKey,
       child: Column(
@@ -215,7 +159,8 @@ class EditJournalState extends State<EditJournal> {
 
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, display a Snackbar.
-                    editStudent(textcontroller, titlecontroller);
+                    print(this.diary.title);
+                    UpdateJournal(this.diary, textcontroller, titlecontroller);
                   }
                   Navigator.push(
                     context,
@@ -248,7 +193,7 @@ class EditJournalState extends State<EditJournal> {
           ),
           color: Colors.white,
         ),
-        child: _buildBody(context),
+        child: UpdateForm(),
       ),
     ));
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/widgets/Journal/editjournal.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
+import 'package:project_mobile/models/diaries.dart' as d;
 
 class listAllJournals extends StatefulWidget {
   @override
@@ -11,8 +12,8 @@ class listAllJournals extends StatefulWidget {
 }
 
 class _listAllJournalState extends State<listAllJournals> {
-  var diary = new Diaries();
-  Future<bool> deletediary(Diaries diary) async {
+  var diary = new d.Diaries();
+  Future<bool> deletediary(d.Diaries diary) async {
     //print(record.title);
     await Firestore.instance
         .collection('Diaries')
@@ -21,19 +22,6 @@ class _listAllJournalState extends State<listAllJournals> {
     print(diary.title);
 
     print("deleting diary");
-    return true;
-  }
-
-  Future<bool> updatediary() async {
-    await Firestore.instance
-        .collection('Diaries')
-        .document(diary.text)
-        .updateData({
-      'title': "title",
-      'text': "text",
-      'timestamp': "timestamp",
-    });
-
     return true;
   }
 
@@ -78,7 +66,7 @@ class _listAllJournalState extends State<listAllJournals> {
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     print(data.documentID);
     print(data);
-    final diary = Diaries.fromSnapshot(data);
+    final diary = d.Diaries.fromSnapshot(data);
 
     return Center(
         child: new SingleChildScrollView(
@@ -91,9 +79,11 @@ class _listAllJournalState extends State<listAllJournals> {
           child: FlatButton(
             child: Text(diary.title),
             onPressed: () {
+              print("hamadaaa");
+              print(diary.title);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => EditJournalM()),
+                MaterialPageRoute(builder: (context) => EditJournalM(diary)),
               );
             },
           ),
@@ -115,33 +105,3 @@ class _listAllJournalState extends State<listAllJournals> {
 
 DateTime now = new DateTime.now();
 DateTime date = new DateTime(now.year, now.month, now.day);
-
-class Diaries {
-  final text;
-  final title;
-  final diaryid;
-  final timestamp;
-  final DocumentReference reference;
-
-  Diaries({
-    this.text,
-    this.title,
-    this.diaryid,
-    this.timestamp,
-    this.reference,
-  });
-
-  Diaries.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['text'] != null),
-        assert(map['title'] != null),
-        assert(map['timestamp'] != null),
-        text = map['text'],
-        title = map['title'],
-        diaryid = map['diaryid'],
-        timestamp = date;
-  Diaries.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$text:$title:$diaryid>";
-}
