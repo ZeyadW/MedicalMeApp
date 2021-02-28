@@ -1,12 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:project_mobile/Home.dart';
 //import 'package:project_mobile/Signupold.dart';
-import 'package:phone_number/phone_number.dart';
-import 'package:project_mobile/models/users.dart';
 
 import '../widgets/Signup/SignupForm.dart';
 
