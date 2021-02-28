@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/widgets/Journal/editjournal.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
 
-class listAllJournals extends StatefulWidget {
+class ListAllJournals extends StatefulWidget {
   @override
   _listAllJournalState createState() {
     return _listAllJournalState();
   }
 }
 
-class _listAllJournalState extends State<listAllJournals> {
+class _listAllJournalState extends State<ListAllJournals> {
   var diary = new Diaries();
   Future<bool> deletediary(Diaries diary) async {
     //print(record.title);

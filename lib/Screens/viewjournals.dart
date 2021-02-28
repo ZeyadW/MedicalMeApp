@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'journal.dart';
 import '../widgets/viewjournal/addjournalbuttonwidget.dart';
 import '../widgets/viewjournal/listalljournals.dart';
 
@@ -15,8 +14,8 @@ class ViewJournals extends StatelessWidget {
       ),
       body: Column(
         children: [
-          addjournalbutton(),
-          listAllJournals(),
+          Addjournalbutton(),
+          ListAllJournals(),
         ],
       ),
     );
