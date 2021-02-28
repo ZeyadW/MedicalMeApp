@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'EditProfile.dart';
-import 'emergencycontact.dart';
 import '../widgets/profile/editprofilebutton.dart';
 import '../widgets/profile/emergencycontactsbutton.dart';
 
@@ -57,12 +55,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               child: FlatButton(
-                /*onPressed: () {
-                  Navigator.push(
+                onPressed: () {
+                  /* Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => logout()),
-                  );
-                },*/
+                  );*/
+                },
                 child: Text(
                   "Log Out",
                 ),
