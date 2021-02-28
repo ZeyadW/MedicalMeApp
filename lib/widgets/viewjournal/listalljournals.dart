@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_mobile/widgets/Journal/editjournal.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
 
 class ListAllJournals extends StatefulWidget {
   @override
-  _listAllJournalState createState() {
-    return _listAllJournalState();
+  _ListAllJournalState createState() {
+    return _ListAllJournalState();
   }
 }
 
-class _listAllJournalState extends State<ListAllJournals> {
+class _ListAllJournalState extends State<ListAllJournals> {
   var diary = new Diaries();
   Future<bool> deletediary(Diaries diary) async {
     //print(record.title);

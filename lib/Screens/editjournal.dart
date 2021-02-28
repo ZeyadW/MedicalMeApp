@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/Journal/journalform.dart';
-import '../widgets/Journal/textjournal.dart';
+
 import 'package:project_mobile/widgets/Journal/editjournal.dart';
 
 class EditJournalM extends StatefulWidget {

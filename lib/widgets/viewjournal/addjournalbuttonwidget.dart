@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/journal.dart';
 
-class addjournalbutton extends StatelessWidget {
+class Addjournalbutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 850,
       height: 70,
       color: const Color(0xffe0ecde),
-      margin: EdgeInsets.only(left: 0.0, top: 0.0, right: 70.0, bottom: 0.0),
+      margin: EdgeInsets.only(left: 0.0, top: 0.0, right: 40.0, bottom: 0.0),
       child: Row(children: [
         Text(
           'Journals:',

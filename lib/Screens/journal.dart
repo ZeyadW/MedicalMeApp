@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/Journal/journalform.dart';
-import '../widgets/Journal/textjournal.dart';
 
 class Journal extends StatefulWidget {
   @override
