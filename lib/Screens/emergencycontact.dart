@@ -15,8 +15,8 @@ class ViewEmergencyContact extends StatelessWidget {
       ),
       body: Column(
         children: [
-          addemergencybutton(),
-          listemergencycontacts(),
+          Addemergencybutton(),
+          Listemergencycontacts(),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/addemergencycontact.dart';
 
-class addemergencybutton extends StatelessWidget {
+class Addemergencybutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

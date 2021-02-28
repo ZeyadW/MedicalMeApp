@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class listemergencycontacts extends StatelessWidget {
+class Listemergencycontacts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
