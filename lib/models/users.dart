@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class User {
   String username;
   String password;
@@ -54,15 +51,6 @@ class Users {
         date: "date",
         email: "email"),
   ];
-  Widget _buildBody(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('Diaries').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearProgressIndicator();
-        print(snapshot.hasData);
-      },
-    );
-  }
 
   User signup(
       username, password, emergency, date, email, emergencycontactname) {
