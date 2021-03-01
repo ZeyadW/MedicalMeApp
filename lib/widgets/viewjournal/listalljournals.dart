@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
-<<<<<<< Updated upstream
-=======
 import 'package:project_mobile/Screens/viewjournals.dart';
->>>>>>> Stashed changes
 
 class ListAllJournals extends StatefulWidget {
   @override
@@ -14,15 +11,9 @@ class ListAllJournals extends StatefulWidget {
   }
 }
 
-<<<<<<< HEAD
 class _ListAllJournalState extends State<ListAllJournals> {
-  var diary = new Diaries();
-  Future<bool> deletediary(Diaries diary) async {
-=======
-class _listAllJournalState extends State<listAllJournals> {
   var diary = new d.Diaries();
   Future<bool> deletediary(d.Diaries diary) async {
->>>>>>> e9ebae1216bb2c7f2daa7f0f45804349e76a3f48
     //print(record.title);
     await Firestore.instance
         .collection('Diaries')
