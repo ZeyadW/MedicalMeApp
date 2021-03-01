@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User {
   String username;
   String password;
@@ -25,7 +27,7 @@ class Users {
     User(
         //0
         username: "zahwa",
-        password: "1234z",
+        password: "123456z",
         emergencycontact: "01110864421",
         date: "date",
         email: "email"),
@@ -54,13 +56,26 @@ class Users {
 
   User signup(
       username, password, emergency, date, email, emergencycontactname) {
-    User u = adduser(
-        username, password, emergency, date, email, emergencycontactname);
-    return u;
+    adduser(username, password, emergency, date, email, emergencycontactname);
+    User rr = User(
+        username: username,
+        password: password,
+        date: date,
+        email: email,
+        emergencycontactname: emergencycontactname);
+    return rr;
   }
 
-  User adduser(
-      username, password, emergency, date, email, emergencycontactname) {
+  Future<User> adduser(
+      username, password, emergency, date, email, emergencycontactname) async {
+    await Firestore.instance.collection("Users").document(email).setData({
+      'emergencyphone': emergency,
+      'emergencyname': emergencycontactname,
+      'birthdate': date,
+      'password': password,
+      'username': username,
+    }); //setData take a map as input
+
     User u = new User(
         username: username,
         password: password,
@@ -68,13 +83,13 @@ class Users {
         date: date,
         email: email,
         emergencycontactname: emergencycontactname);
-    myusers.add(u);
+    //myusers.add(u);
     return u;
   }
 
-  bool login(username, password) {
+  bool login(email, password) {
     for (User user in myusers) {
-      if (user.username == username) {
+      if (user.email == email) {
         if (user.password == password) {
           return true;
         }
@@ -83,9 +98,9 @@ class Users {
     return false;
   }
 
-  User validatelogin(username, password) {
-    if (login(username, password)) {
-      User u = new User(username: username);
+  User validatelogin(email, password) {
+    if (login(email, password)) {
+      User u = new User(email: email);
       return u;
     } else {
       return null;

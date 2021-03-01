@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_mobile/Screens/editjournal.dart';
+import 'package:project_mobile/models/diaries.dart' as d;
+=======
 import 'package:project_mobile/widgets/Journal/editjournal.dart' as delete;
 import 'package:project_mobile/Screens/editjournal.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
 import 'package:project_mobile/widgets/Journal/deletejournal.dart';
+
 import 'package:project_mobile/Screens/viewjournals.dart';
 
-class listAllJournals extends StatefulWidget {
+class ListAllJournals extends StatefulWidget {
   @override
-  _listAllJournalState createState() {
-    return _listAllJournalState();
+  _ListAllJournalState createState() {
+    return _ListAllJournalState();
   }
 }
 
+
+class _ListAllJournalState extends State<ListAllJournals> {
+  Future<bool> deletediary(d.Diaries diary) async {
+    //print(record.title);
+=======
 class _listAllJournalState extends State<listAllJournals> {
   var diary = new d.Diaries();
   Future<bool> deleteDiary(diary) async {
@@ -68,6 +77,7 @@ class _listAllJournalState extends State<listAllJournals> {
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     print(data.documentID);
     print(data);
+
     final diary = d.Diaries.fromSnapshot(data);
 
     return Center(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 //import 'package:project_mobile/Signupold.dart';
 
 import '../widgets/Signup/SignupForm.dart';
@@ -10,7 +11,7 @@ final validatePhone = RegExp(pattern);
 class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var Row1 = Row(
+    var row1 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(padding: EdgeInsets.only(top: 50.0)),
@@ -20,7 +21,7 @@ class SignupPage extends StatelessWidget {
         ),
       ],
     );
-    var Row2 = Row(
+    var row2 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
@@ -39,7 +40,7 @@ class SignupPage extends StatelessWidget {
           child: Container(
               child: new SingleChildScrollView(
         child: Column(
-          children: <Widget>[Row1, Row2, SignUpForm()],
+          children: <Widget>[row1, row2, SignUpForm()],
         ),
       ))),
     );

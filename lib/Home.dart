@@ -2,18 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:project_mobile/Screens/viewjournals.dart';
 import 'Screens/viewjournals.dart';
-import 'package:project_mobile/Screens/journal.dart';
-import 'Screens/welcomescreen (1).dart';
-import 'Screens/Login.dart';
 import 'Screens/contactus.dart';
-import 'Screens/journal.dart';
-import 'Home.dart';
 import 'Screens/profile.dart';
 import 'models/users.dart';
 import 'Screens/viewreminders.dart';
-import 'Screens/viewjournals.dart';
 import 'Screens/searchfaq.dart';
-import 'Screens/searchmedicine.dart';
 
 class HomePage extends StatelessWidget {
   final User u;
