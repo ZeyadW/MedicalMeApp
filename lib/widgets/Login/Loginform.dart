@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_mobile/models/users.dart';
 import 'package:project_mobile/Screens/Login.dart';
 import 'package:project_mobile/Home.dart';
+import 'package:project_mobile/Service/FlutterFireauth.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -29,11 +30,10 @@ class LoginFormState extends State<LoginForm> {
   static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
   static final validCharactersPassword = RegExp(r'^[a-zA-Z0-9_\-=@\.;]+$');
   Users users = new Users();
-  final usernamecontroller = TextEditingController();
+  final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
   bool checkuserexist() {
-    User u =
-        users.validatelogin(usernamecontroller.text, passwordcontroller.text);
+    User u = users.validatelogin(emailcontroller.text, passwordcontroller.text);
     if (u != null) {
       return true;
     } else {
@@ -50,9 +50,9 @@ class LoginFormState extends State<LoginForm> {
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => HomePage(
+            builder: (context) => HomePage.ut(
                 u: users.validatelogin(
-                    usernamecontroller.text, passwordcontroller.text))));
+                    emailcontroller.text, passwordcontroller.text))));
       },
     );
 
@@ -86,30 +86,30 @@ class LoginFormState extends State<LoginForm> {
               ],
             ),
             child: TextFormField(
-              controller: usernamecontroller,
-              autofocus: true,
-              style: TextStyle(color: Colors.green),
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.perm_identity),
-                  labelText: 'Enter your username',
-                  labelStyle: TextStyle(color: Colors.green),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green),
-                    borderRadius: BorderRadius.circular(21.0),
-                  )),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                if (!value.contains(validCharacters)) {
-                  return 'Please enter the correct format';
-                }
-                ;
-                return null;
-              },
-            ),
+                controller: emailcontroller,
+                autofocus: true,
+                style: TextStyle(color: Colors.green),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.perm_identity),
+                    labelText: 'Enter your Email',
+                    labelStyle: TextStyle(color: Colors.green),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green)),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                      borderRadius: BorderRadius.circular(21.0),
+                    )),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  if (!value.contains('.')) {
+                    return 'Please enter the correct email format';
+                  }
+                  if (!value.contains('@')) {
+                    return 'Please enter the correct email format';
+                  }
+                }),
           ),
           Padding(padding: EdgeInsets.only(top: 10.0)),
           Container(
@@ -185,11 +185,18 @@ class LoginFormState extends State<LoginForm> {
             child: Align(
               alignment: Alignment.topCenter,
               child: FlatButton(
-                onPressed: () {
+                onPressed: () async {
+                  bool shouldNavigate = await signIn(
+                      emailcontroller.text, passwordcontroller.text);
                   // Validate returns true if the form is valid, or false
                   // otherwise.
                   if (_formKey.currentState.validate()) {
-                    if (checkuserexist() == true) {
+                    bool p = checkuserexist();
+                    print("check exist ");
+                    print(p);
+                    print(" shouldNavigate ");
+                    print(shouldNavigate);
+                    if (checkuserexist() == true && shouldNavigate) {
                       return showDialog(
                         context: context,
                         builder: (context) {
