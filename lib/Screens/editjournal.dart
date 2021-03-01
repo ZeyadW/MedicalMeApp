@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_mobile/widgets/Journal/editjournal.dart';
+import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
+import 'package:project_mobile/models/diaries.dart' as d;
 
 class EditJournalM extends StatefulWidget {
+  var diary = new d.Diaries();
+  EditJournalM(this.diary);
   @override
-  _EditJournal createState() => _EditJournal();
+  _EditJournal createState() => _EditJournal(diary);
 }
 
 class _EditJournal extends State<EditJournalM> {
+  var diary = new d.Diaries();
+  _EditJournal(this.diary);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +26,7 @@ class _EditJournal extends State<EditJournalM> {
         child: Container(
           child: new SingleChildScrollView(
               child: Column(children: [
-            EditJournal(),
+            EditJournal(this.diary),
           ])),
         ),
       ),
