@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
+<<<<<<< Updated upstream
+=======
+import 'package:project_mobile/Screens/viewjournals.dart';
+>>>>>>> Stashed changes
 
 class ListAllJournals extends StatefulWidget {
   @override
