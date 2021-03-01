@@ -40,9 +40,6 @@ class EditJournalState extends State<EditJournal> {
   final titlecontroller = TextEditingController();
 
   Widget UpdateForm() {
-    print('build');
-
-    print('build');
     return Form(
       key: _formKey,
       child: Column(
