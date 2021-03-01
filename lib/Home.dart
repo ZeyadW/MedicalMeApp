@@ -6,7 +6,6 @@ import 'Screens/contactus.dart';
 import 'Screens/profile.dart';
 import 'models/users.dart';
 import 'Screens/viewreminders.dart';
-import 'Screens/viewjournals.dart';
 import 'Screens/searchfaq.dart';
 
 class HomePage extends StatelessWidget {

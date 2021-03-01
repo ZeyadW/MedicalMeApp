@@ -99,6 +99,7 @@ class LoginFormState extends State<LoginForm> {
                       borderSide: BorderSide(color: Colors.green),
                       borderRadius: BorderRadius.circular(21.0),
                     )),
+                // ignore: missing_return
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';

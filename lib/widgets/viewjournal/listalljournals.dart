@@ -12,7 +12,6 @@ class ListAllJournals extends StatefulWidget {
 }
 
 class _ListAllJournalState extends State<ListAllJournals> {
-  var diary = new d.Diaries();
   Future<bool> deletediary(d.Diaries diary) async {
     //print(record.title);
     await Firestore.instance
@@ -66,6 +65,7 @@ class _ListAllJournalState extends State<ListAllJournals> {
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     print(data.documentID);
     print(data);
+
     final diary = d.Diaries.fromSnapshot(data);
 
     return Center(
