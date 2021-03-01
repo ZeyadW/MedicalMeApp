@@ -34,6 +34,8 @@ class LoginFormState extends State<LoginForm> {
   final passwordcontroller = TextEditingController();
   bool checkuserexist() {
     User u = users.validatelogin(emailcontroller.text, passwordcontroller.text);
+    print("jhrjrrjrjrjrjjr");
+    print(u.email);
     if (u != null) {
       return true;
     } else {
@@ -99,7 +101,6 @@ class LoginFormState extends State<LoginForm> {
                       borderSide: BorderSide(color: Colors.green),
                       borderRadius: BorderRadius.circular(21.0),
                     )),
-                // ignore: missing_return
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';

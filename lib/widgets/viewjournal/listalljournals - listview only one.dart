@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ListAllJournals extends StatefulWidget {
   @override
-  _listAllJournalState createState() {
-    return _listAllJournalState();
+  _ListAllJournalState createState() {
+    return _ListAllJournalState();
   }
 }
 
-class _listAllJournalState extends State<ListAllJournals> {
+class _ListAllJournalState extends State<ListAllJournals> {
   var diary = new Diaries();
   Future<bool> deletediary(Diaries diary) async {
     //print(record.title);
@@ -147,7 +147,7 @@ class Diaries {
         diaryid = map['diaryid'],
         timestamp = map['timestamp'];
   Diaries.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 
   @override
   String toString() => "Record<$text:$title:$diaryid:$timestamp>";

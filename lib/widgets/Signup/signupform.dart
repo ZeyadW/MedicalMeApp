@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:phone_number/phone_number.dart';
+import 'package:project_mobile/Service/FlutterFireauth.dart';
 import 'package:project_mobile/models/users.dart';
 
 import '../../Home.dart';
@@ -46,8 +46,25 @@ class SignUpFormState extends State<SignUpForm> {
       child: Text(
         "Ok",
       ),
-      onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+      onPressed: () async {
+        bool shouldNavigate =
+            await register(emailcontroller.text, passwordcontroller.text);
+        print(shouldNavigate);
+        print(usernamecontroller.text);
+        if (shouldNavigate) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage.ut(
+                      u: u.signup(
+                          usernamecontroller.text,
+                          passwordcontroller.text,
+                          emergencycontactnamecontroller.text,
+                          datecontroller.text,
+                          emailcontroller.text,
+                          emergencycontactcontroller.text))));
+        }
+        /*  Navigator.of(context, rootNavigator: true).pop();
         Navigator.of(context).push(new MaterialPageRoute(
             builder: (context) => HomePage(
                 u: u.signup(
@@ -56,7 +73,7 @@ class SignUpFormState extends State<SignUpForm> {
                     emergencycontactnamecontroller.text,
                     datecontroller.text,
                     emailcontroller.text,
-                    emergencycontactcontroller.text))));
+                    emergencycontactcontroller.text))));*/
       },
     );
     // Build a Form widget using the _formKey created above.
@@ -243,7 +260,7 @@ class SignUpFormState extends State<SignUpForm> {
                 if (value.isEmpty) {
                   return 'Please enter some text';
                 }
-                if (!value.contains('.com')) {
+                if (!value.contains('.')) {
                   return 'Please enter the correct email format';
                 }
                 return value.contains('@')

@@ -27,7 +27,7 @@ class Diaries {
         diaryid = map['diaryid'],
         timestamp = date;
   Diaries.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 
   @override
   String toString() => "Record<$text:$title:$diaryid>";

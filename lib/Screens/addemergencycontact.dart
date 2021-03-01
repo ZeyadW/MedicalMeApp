@@ -5,13 +5,13 @@ import '../widgets/Addemergencycontact/AddemergencycontactForm.dart';
 class Addemergencycontact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var Row1 = Row(
+    var row1 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(padding: EdgeInsets.only(top: 50.0)),
       ],
     );
-    var Row2 = Row(
+    var row2 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
@@ -30,7 +30,7 @@ class Addemergencycontact extends StatelessWidget {
           child: Container(
               child: new SingleChildScrollView(
         child: Column(
-          children: <Widget>[Row1, Row2, AddemergencycontactForm()],
+          children: <Widget>[row1, row2, AddemergencycontactForm()],
         ),
       ))),
     );

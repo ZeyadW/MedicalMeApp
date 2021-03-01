@@ -17,7 +17,7 @@ class Addjournalbutton extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            left: 10.0,
+            left: 100.0,
             top: 10.0,
             right: 0.0,
             bottom: 0.0,
@@ -37,8 +37,7 @@ class Addjournalbutton extends StatelessWidget {
               );
             },
           ),
-        ),
-        IconButton(icon: Icon(Icons.search), onPressed: () {}),
+        )
       ]),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'searchmedicine.dart';
+import '../Addmedicine.dart';
 import '../widgets/reminders/reminderlistview.dart';
 import '../widgets/reminders/Remindertitle.dart';
 import '../widgets/reminders/bodystate.dart';

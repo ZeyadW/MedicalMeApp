@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 import '../widgets/Login/Loginform.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var Row1 = Row(
+    var row1 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(padding: EdgeInsets.only(top: 50.0)),
@@ -15,7 +16,7 @@ class LoginPage extends StatelessWidget {
         ),
       ],
     );
-    var Row2 = Row(
+    var row2 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
@@ -33,7 +34,7 @@ class LoginPage extends StatelessWidget {
           child: Container(
               child: new SingleChildScrollView(
         child: Column(
-          children: <Widget>[Row1, Row2, LoginForm()],
+          children: <Widget>[row1, row2, LoginForm()],
         ),
       ))),
     );

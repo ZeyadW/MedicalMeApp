@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class User {
   String username;
@@ -23,7 +24,7 @@ class User {
 }
 
 class Users {
-  List<User> myusers = [
+  /*List<User> myusers = [
     User(
         //0
         username: "zahwa",
@@ -52,7 +53,7 @@ class Users {
         emergencycontact: "01110864421",
         date: "date",
         email: "email"),
-  ];
+  ];*/
 
   User signup(
       username, password, emergency, date, email, emergencycontactname) {
@@ -87,7 +88,43 @@ class Users {
     return u;
   }
 
-  bool login(email, password) {
+  /*Widget build1(BuildContext context, String email) {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(email).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data.data();
+          return Text("Full Name: ${data['full_name']} ${data['last_name']}");
+        }
+
+        return Text("loading");
+      },
+    );
+  }*/
+
+  Future<bool> login1(email, password) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('Users');
+    DocumentSnapshot variable =
+        await Firestore.instance.collection('Users').document('email').get();
+    print(variable.data());
+    print(" in log inn111 ");
+    print("email" + email);
+    Future<DocumentSnapshot> ss = users.doc(email).get();
+
+    print(ss);
+    print("snapp");
+    print(users.doc(email).get().toString());
+    return true;
+  }
+
+  /* bool login(email, password) {
     for (User user in myusers) {
       if (user.email == email) {
         if (user.password == password) {
@@ -97,10 +134,13 @@ class Users {
     }
     return false;
   }
-
+*/
   User validatelogin(email, password) {
-    if (login(email, password)) {
-      User u = new User(email: email);
+    Future<bool> log = login1(email, password);
+    if (log == true) {
+      User u = User(email: email);
+      print(u);
+      print(u.email);
       return u;
     } else {
       return null;
