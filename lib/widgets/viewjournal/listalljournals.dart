@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
+=======
+import 'package:project_mobile/widgets/Journal/editjournal.dart' as delete;
+import 'package:project_mobile/Screens/editjournal.dart';
+import 'package:project_mobile/models/diaries.dart' as d;
+import 'package:project_mobile/widgets/Journal/deletejournal.dart';
+
 import 'package:project_mobile/Screens/viewjournals.dart';
 
 class ListAllJournals extends StatefulWidget {
@@ -11,16 +17,22 @@ class ListAllJournals extends StatefulWidget {
   }
 }
 
+
 class _ListAllJournalState extends State<ListAllJournals> {
   Future<bool> deletediary(d.Diaries diary) async {
     //print(record.title);
+=======
+class _listAllJournalState extends State<listAllJournals> {
+  var diary = new d.Diaries();
+  Future<bool> deleteDiary(diary) async {
+    print('delete diary');
+    print(diary.title);
     await Firestore.instance
         .collection('Diaries')
-        .document(diary.text)
+        .document(diary.title)
         .delete();
-    print(diary.title);
 
-    print("deleting diary");
+    print("deleting record");
     return true;
   }
 
@@ -73,9 +85,16 @@ class _ListAllJournalState extends State<ListAllJournals> {
             child: Container(
                 child: ListTile(
       leading: Image(image: AssetImage('images/journl.jpeg')),
+      trailing: IconButton(
+        onPressed: () {
+          deleteDiary(diary);
+        },
+        icon: Icon(Icons.delete),
+        color: Colors.red,
+      ),
       title: Column(children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
           child: FlatButton(
             child: Text(diary.title),
             onPressed: () {
@@ -89,7 +108,7 @@ class _ListAllJournalState extends State<ListAllJournals> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 190, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
           child: Text(
             diary.timestamp.toString(),
             style: TextStyle(
@@ -97,7 +116,7 @@ class _ListAllJournalState extends State<ListAllJournals> {
                 color: Colors.grey,
                 fontWeight: FontWeight.normal),
           ),
-        )
+        ),
       ]),
     ))));
   }
