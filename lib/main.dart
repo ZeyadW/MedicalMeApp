@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_mobile/Screens/journal.dart';
+import 'package:project_mobile/Screens/viewjournals.dart';
 import 'Screens/welcomescreen (1).dart';
 
 import 'Screens/contactus.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: WelcomeScreen(),
+      home: ViewJournals(),
       routes: {
         'home': (context) => HomePage(),
         'Contact Us': (context) => ContactUs(),

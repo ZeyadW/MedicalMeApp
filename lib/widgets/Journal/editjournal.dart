@@ -3,7 +3,7 @@ import 'package:project_mobile/Screens/viewjournals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
 
-final db = Firestore.instance;
+final db = FirebaseFirestore.instance;
 
 class EditJournal extends StatefulWidget {
   var diary = d.Diaries();
@@ -24,10 +24,14 @@ class EditJournalState extends State<EditJournal> {
   EditJournalState(this.diary);
 
   Future<bool> UpdateJournal(diary, textcontroller, titlecontroller) async {
-    await Firestore.instance
+    print('update journal');
+    print(this.diary.title);
+    print('update journal');
+
+    await FirebaseFirestore.instance
         .collection('Diaries')
-        .document(diary.title)
-        .updateData({
+        .doc(this.diary.title)
+        .update({
       // 'title': titlecontroller.text,
       'text': textcontroller.text,
       'timestamp': date
@@ -40,9 +44,6 @@ class EditJournalState extends State<EditJournal> {
   final titlecontroller = TextEditingController();
 
   Widget UpdateForm() {
-    print('build');
-
-    print('build');
     return Form(
       key: _formKey,
       child: Column(

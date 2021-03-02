@@ -12,15 +12,12 @@ class ListAllJournals extends StatefulWidget {
 
 class _ListAllJournalState extends State<ListAllJournals> {
   var diary = new d.Diaries();
-  Future<bool> deletediary(d.Diaries diary) async {
-    //print(record.title);
-    await Firestore.instance
+  Future<bool> deleteDiary(diary) async {
+    await FirebaseFirestore.instance
         .collection('Diaries')
-        .document(diary.text)
+        .doc(diary.title)
         .delete();
-    print(diary.title);
 
-    print("deleting diary");
     return true;
   }
 
@@ -47,11 +44,11 @@ class _ListAllJournalState extends State<ListAllJournals> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('Diaries').snapshots(),
+      stream: FirebaseFirestore.instance.collection('Diaries').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
-        return _buildList(context, snapshot.data.documents);
+        return _buildList(context, snapshot.data.docs);
       },
     );
   }
@@ -63,8 +60,6 @@ class _ListAllJournalState extends State<ListAllJournals> {
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
-    print(data.documentID);
-    print(data);
     final diary = d.Diaries.fromSnapshot(data);
 
     return Center(
@@ -72,14 +67,19 @@ class _ListAllJournalState extends State<ListAllJournals> {
             child: Container(
                 child: ListTile(
       leading: Image(image: AssetImage('images/journl.jpeg')),
+      trailing: IconButton(
+        onPressed: () {
+          deleteDiary(diary);
+        },
+        icon: Icon(Icons.delete),
+        color: Colors.red,
+      ),
       title: Column(children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
           child: FlatButton(
             child: Text(diary.title),
             onPressed: () {
-              print("hamadaaa");
-              print(diary.title);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => EditJournalM(diary)),
@@ -88,7 +88,7 @@ class _ListAllJournalState extends State<ListAllJournals> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 190, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
           child: Text(
             diary.timestamp.toString(),
             style: TextStyle(
