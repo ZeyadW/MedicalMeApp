@@ -21,6 +21,10 @@ class User {
   String getusername() {
     return username;
   }
+
+  Future<String> getEmail() {
+    return Future.value(email);
+  }
 }
 
 class Users {
@@ -88,61 +92,92 @@ class Users {
     return u;
   }
 
-  /*Widget build1(BuildContext context, String email) {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(email).get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text("Something went wrong");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data.data();
-          return Text("Full Name: ${data['full_name']} ${data['last_name']}");
-        }
-
-        return Text("loading");
-      },
-    );
-  }*/
-
+  String username;
   Future<bool> login1(email, password) async {
-    CollectionReference users = FirebaseFirestore.instance.collection('Users');
+    //CollectionReference users = FirebaseFirestore.instance.collection('Users');
     DocumentSnapshot variable =
-        await Firestore.instance.collection('Users').document('email').get();
-    print(variable.data());
-    print(" in log inn111 ");
-    print("email" + email);
-    Future<DocumentSnapshot> ss = users.doc(email).get();
+        await Firestore.instance.collection('Users').document(email).get();
 
-    print(ss);
-    print("snapp");
-    print(users.doc(email).get().toString());
-    return true;
-  }
+    if (variable.data() == null) {
+      // Future.delayed(Duration(seconds: 100), () => false);
+      return false;
+    } else {
+      //print("not null in login 1");
+      if (variable.data().containsValue(password)) {
+        print("variable.get(username");
+        print(variable.get("username"));
+        this.username = variable.get("username");
 
-  /* bool login(email, password) {
-    for (User user in myusers) {
-      if (user.email == email) {
-        if (user.password == password) {
-          return true;
+        //print("passwordd");
+        //print(password);
+        // Future.delayed(Duration(seconds: 30), () => true);
+        print("correct password in log in ");
+        //return Future<bool>.value(true);
+        return true;
+      } else {
+        //print("variable.data().containsValue(password)");
+        //print(variable.data().containsValue(password));
+        //print("passwordd");
+        //print(password);
+        print("wrong password in log in ");
+        return false;
+        //return Future<bool>.value(false);
+      }
+
+      /*   variable.data().forEach((key, value) {
+        //////awl mara byleef byb2aaaa el key username wel valure maria maslan f byreturn
+        print("i");
+        print(i);
+        if (i == 3) {
+          if (value == password) {
+            print("keyy");
+            print(key);
+            print("value");
+            print(value);
+            print("passwordd");
+            print(password);
+            // Future.delayed(Duration(seconds: 30), () => true);
+            print("correct password in log in ");
+            return Future<bool>.value(true);
+          } else {
+            print("keyy");
+            print(key);
+            print("value");
+            print(value);
+            print("passwordd");
+            print(password);
+            print("i");
+            print(i);
+            print("wrong password in log in ");
+            return Future<bool>.value(false);
+          }
+        } else {
+          i++;
         }
       }
+      
+      
+      );*/
     }
-    return false;
   }
-*/
-  User validatelogin(email, password) {
-    Future<bool> log = login1(email, password);
-    if (log == true) {
-      User u = User(email: email);
-      print(u);
-      print(u.email);
+
+  Future<User> validatelogin(email, password) async {
+    var log1 = await login1(email, password);
+    // Future<Widget> log2 = login2(email, password);
+    //print("ba3d await  in validate ");
+    //print(log1.toString());
+    //print("ba3d to string (log1) in validate ");
+    //print(log1);
+    //Future<bool> log = await  waitting(log1);
+    // Future.delayed(Duration(seconds: 100), () => log1);
+    if (log1) {
+      User u = User(email: email, username: this.username);
+      // print(u.toString());
+      //print(u.email);
+      //print("log1 === true");
       return u;
     } else {
+      // print("log1   falseeee");
       return null;
     }
   }

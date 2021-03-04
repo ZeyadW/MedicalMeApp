@@ -6,16 +6,20 @@ import 'Screens/contactus.dart';
 import 'Screens/profile.dart';
 import 'models/users.dart';
 import 'Screens/viewreminders.dart';
-import 'Screens/viewjournals.dart';
+//import 'Screens/viewjournals.dart';
 import 'Screens/searchfaq.dart';
 
 class HomePage extends StatelessWidget {
+  // String username = "";
+  // Future<User> user;
   User u = new User();
+
   HomePage.ut({this.u});
+  // HomePage.ul({this.user});
   HomePage();
   @override
   Widget build(BuildContext context) {
-    var Row1 = Row(
+    var row1 = Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -43,7 +47,7 @@ class HomePage extends StatelessWidget {
         Padding(padding: EdgeInsets.only(top: 50.0)),
       ],
     );
-    var Row2 = Row(
+    var row2 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Image(image: AssetImage('images/Icons- brain.png')),
@@ -62,7 +66,7 @@ class HomePage extends StatelessWidget {
         ),
       ],
     );
-    var Row3 = Row(
+    var row3 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(padding: EdgeInsets.only(top: 5.0)),
@@ -82,7 +86,7 @@ class HomePage extends StatelessWidget {
         ),
       ],
     );
-    var Row4 = Row(
+    var row4 = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(padding: EdgeInsets.only(top: 5.0)),
@@ -161,18 +165,18 @@ class HomePage extends StatelessWidget {
             context: context,
             tiles: [
               ListTile(
-                title: Row1,
+                title: row1,
               ),
               Divider(),
               ListTile(
-                title: Row2,
+                title: row2,
               ),
               ListTile(
-                title: Row3,
+                title: row3,
               ),
               Divider(),
               ListTile(
-                title: Row4,
+                title: row4,
               ),
               Divider(),
             ],

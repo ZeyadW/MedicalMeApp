@@ -32,17 +32,25 @@ class LoginFormState extends State<LoginForm> {
   Users users = new Users();
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
-  bool checkuserexist() {
-    User u = users.validatelogin(emailcontroller.text, passwordcontroller.text);
-    print("jhrjrrjrjrjrjjr");
-    print(u.email);
+  var u = new User();
+  Future<bool> checkuserexist() async {
+    this.u = await users.validatelogin(
+        emailcontroller.text, passwordcontroller.text);
+    print("in chekkkkkkk user ");
+    print(u);
     if (u != null) {
+      print("in  checkuser not null user");
+      print(u.toString());
+      print(u.username);
       return true;
     } else {
+      print("in  checkuser null user");
+
       return false;
     }
   }
 
+  //Widget checklogin() {}
   @override
   Widget build(BuildContext context) {
     Widget okButton = FlatButton(
@@ -52,9 +60,7 @@ class LoginFormState extends State<LoginForm> {
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => HomePage.ut(
-                u: users.validatelogin(
-                    emailcontroller.text, passwordcontroller.text))));
+            builder: (context) => HomePage.ut(u: this.u)));
       },
     );
 
@@ -193,12 +199,12 @@ class LoginFormState extends State<LoginForm> {
                   // Validate returns true if the form is valid, or false
                   // otherwise.
                   if (_formKey.currentState.validate()) {
-                    bool p = checkuserexist();
+                    var p = await checkuserexist();
                     print("check exist ");
                     print(p);
                     print(" shouldNavigate ");
                     print(shouldNavigate);
-                    if (checkuserexist() == true && shouldNavigate) {
+                    if (p == true && shouldNavigate) {
                       return showDialog(
                         context: context,
                         builder: (context) {
