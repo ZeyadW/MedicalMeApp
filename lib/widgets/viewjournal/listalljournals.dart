@@ -65,6 +65,8 @@ class _ListAllJournalState extends State<ListAllJournals> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     final diary = d.Diaries.fromSnapshot(data);
+    final diarydate =
+        diary.timestamp.toDate().difference(DateTime.now()).inDays.abs();
 
     return Center(
         child: new SingleChildScrollView(
@@ -92,9 +94,9 @@ class _ListAllJournalState extends State<ListAllJournals> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 120, 0),
           child: Text(
-            diary.timestamp.toString(),
+            'Added $diarydate Days Ago',
             style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey,

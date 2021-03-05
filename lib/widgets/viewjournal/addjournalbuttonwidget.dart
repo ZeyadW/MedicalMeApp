@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/journal.dart';
+import 'package:project_mobile/widgets/viewjournal/listalljournals.dart' as l;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Addjournalbutton extends StatelessWidget {
+  List<String> dropDown = <String>["Default", "Diary title", "Date"];
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 850,
       height: 70,
       color: const Color(0xffe0ecde),
-      margin: EdgeInsets.only(left: 0.0, top: 0.0, right: 40.0, bottom: 0.0),
+      margin: EdgeInsets.only(left: 0.0, top: 0.0, right: 20.0, bottom: 0.0),
       child: Row(children: [
-        Text(
-          'Journals:',
-          style: TextStyle(
-              fontSize: 25, color: Colors.green, fontWeight: FontWeight.bold),
-        ),
         Padding(
           padding: const EdgeInsets.only(
-            left: 100.0,
+            left: 10.0,
             top: 10.0,
-            right: 0.0,
+            right: 125.0,
             bottom: 0.0,
           ),
           child: FlatButton(
@@ -37,7 +36,38 @@ class Addjournalbutton extends StatelessWidget {
               );
             },
           ),
-        )
+        ),
+        new DropdownButton<String>(
+            underline: Container(),
+            icon: Icon(Icons.sort, color: Colors.green),
+            items: dropDown.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (String value) {
+              /*  switch (value) {
+                case 'Default':
+                  l.x = FirebaseFirestore.instance
+                      .collection('Diaries')
+                      .orderBy('title', descending: true)
+                      .snapshots();
+                  break;
+                case 'Diary title':
+                  l.x = FirebaseFirestore.instance
+                      .collection('Diaries')
+                      .orderBy('title', descending: true)
+                      .snapshots();
+                  break;
+                case 'Date':
+                  l.x = FirebaseFirestore.instance
+                      .collection('Diaries')
+                      .orderBy('date', descending: true)
+                      .snapshots();
+                  break;
+              }*/
+            })
       ]),
     );
   }
