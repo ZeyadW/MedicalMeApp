@@ -50,7 +50,6 @@ class LoginFormState extends State<LoginForm> {
     }
   }
 
-  //Widget checklogin() {}
   @override
   Widget build(BuildContext context) {
     Widget okButton = FlatButton(

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_mobile/Screens/journal.dart';
-import 'package:project_mobile/Screens/viewjournals.dart';
-import 'Screens/welcomescreen (1).dart';
+//import 'Screens/welcomescreen (1).dart';
 
 import 'Screens/contactus.dart';
 import 'Screens/journal.dart';
 import 'Home.dart';
 import 'Screens/profile.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+import "widgets/connectivity.dart";
 
 //void main() => runApp(MyApp());
 void main() async {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ViewJournals(),
+      home: HomeConnect(),
       routes: {
         'home': (context) => HomePage(),
         'Contact Us': (context) => ContactUs(),

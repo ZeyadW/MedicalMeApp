@@ -103,14 +103,12 @@ class Users {
       return false;
     } else {
       //print("not null in login 1");
-      if (variable.data().containsValue(password)) {
+      var passworduser = variable.get("password");
+      if (passworduser == password) {
         print("variable.get(username");
         print(variable.get("username"));
         this.username = variable.get("username");
 
-        //print("passwordd");
-        //print(password);
-        // Future.delayed(Duration(seconds: 30), () => true);
         print("correct password in log in ");
         //return Future<bool>.value(true);
         return true;
@@ -123,41 +121,6 @@ class Users {
         return false;
         //return Future<bool>.value(false);
       }
-
-      /*   variable.data().forEach((key, value) {
-        //////awl mara byleef byb2aaaa el key username wel valure maria maslan f byreturn
-        print("i");
-        print(i);
-        if (i == 3) {
-          if (value == password) {
-            print("keyy");
-            print(key);
-            print("value");
-            print(value);
-            print("passwordd");
-            print(password);
-            // Future.delayed(Duration(seconds: 30), () => true);
-            print("correct password in log in ");
-            return Future<bool>.value(true);
-          } else {
-            print("keyy");
-            print(key);
-            print("value");
-            print(value);
-            print("passwordd");
-            print(password);
-            print("i");
-            print(i);
-            print("wrong password in log in ");
-            return Future<bool>.value(false);
-          }
-        } else {
-          i++;
-        }
-      }
-      
-      
-      );*/
     }
   }
 
