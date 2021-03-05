@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/journal.dart';
 import 'package:project_mobile/Screens/viewjournals.dart';
 import 'Screens/welcomescreen (1).dart';
-
+import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
 import 'Screens/contactus.dart';
 import 'Screens/journal.dart';
 import 'Home.dart';
