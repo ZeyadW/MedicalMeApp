@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
+import 'package:project_mobile/widgets/viewjournal/addjournalbuttonwidget.dart';
 
 class ListAllJournals extends StatefulWidget {
   @override
@@ -44,7 +45,10 @@ class _ListAllJournalState extends State<ListAllJournals> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('Diaries').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('Diaries')
+          .orderBy('title', descending: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -61,6 +65,8 @@ class _ListAllJournalState extends State<ListAllJournals> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     final diary = d.Diaries.fromSnapshot(data);
+    final diarydate =
+        diary.timestamp.toDate().difference(DateTime.now()).inDays.abs();
 
     return Center(
         child: new SingleChildScrollView(
@@ -88,9 +94,9 @@ class _ListAllJournalState extends State<ListAllJournals> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 120, 0),
           child: Text(
-            diary.timestamp.toString(),
+            'Added $diarydate Days Ago',
             style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
@@ -100,6 +106,23 @@ class _ListAllJournalState extends State<ListAllJournals> {
       ]),
     ))));
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xffe0ecde),
+    appBar: AppBar(
+      backgroundColor: const Color(0xff68b2a0),
+//            title: Center(child: Image(image: AssetImage('images/Icon.png'))),
+    ),
+    body: Column(
+      children: [
+        Addjournalbutton(),
+        ListAllJournals(),
+      ],
+    ),
+  );
 }
 
 DateTime now = new DateTime.now();

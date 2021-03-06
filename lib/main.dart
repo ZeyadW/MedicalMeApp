@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_mobile/Screens/journal.dart';
-//import 'Screens/welcomescreen (1).dart';
-
+import 'package:project_mobile/Screens/viewjournals.dart';
+import 'Screens/welcomescreen (1).dart';
+import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
 import 'Screens/contactus.dart';
 import 'Screens/journal.dart';
 import 'Home.dart';
 import 'Screens/profile.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/irebase_auth.dart';
 import "widgets/connectivity.dart";
 
 //void main() => runApp(MyApp());

@@ -40,10 +40,9 @@ class EditJournalState extends State<EditJournal> {
     return true;
   }
 
-  final textcontroller = TextEditingController();
-  final titlecontroller = TextEditingController();
-
   Widget UpdateForm() {
+    final textcontroller = TextEditingController(text: diary.text);
+    final titlecontroller = TextEditingController(text: diary.title);
     return Form(
       key: _formKey,
       child: Column(
@@ -67,7 +66,7 @@ class EditJournalState extends State<EditJournal> {
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
-                  labelText: diary.title,
+                  labelText: "Title",
                   labelStyle: TextStyle(color: Colors.green),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green)),
@@ -102,7 +101,7 @@ class EditJournalState extends State<EditJournal> {
                 style: TextStyle(color: Colors.green),
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(vertical: 100.0),
-                    labelText: diary.text,
+                    labelText: "Diary",
                     labelStyle: TextStyle(color: Colors.green),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green)),
@@ -160,7 +159,6 @@ class EditJournalState extends State<EditJournal> {
 
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, display a Snackbar.
-                    print(this.diary.title);
                     UpdateJournal(this.diary, textcontroller, titlecontroller);
                   }
                   Navigator.push(

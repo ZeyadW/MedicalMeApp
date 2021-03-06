@@ -25,7 +25,7 @@ class Diaries {
         text = map['text'],
         title = map['title'],
         diaryid = map['diaryid'],
-        timestamp = date;
+        timestamp = map['timestamp'];
   Diaries.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data(), reference: snapshot.reference);
 

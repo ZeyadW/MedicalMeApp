@@ -9,7 +9,13 @@ class ViewJournals extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffe0ecde),
       appBar: AppBar(
+        title: Text(
+          'Journals:',
+          style: TextStyle(
+              fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color(0xff68b2a0),
+
 //            title: Center(child: Image(image: AssetImage('images/Icon.png'))),
       ),
       body: Column(

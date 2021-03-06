@@ -8,6 +8,7 @@ import 'models/users.dart';
 import 'Screens/viewreminders.dart';
 //import 'Screens/viewjournals.dart';
 import 'Screens/searchfaq.dart';
+import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
 
 class HomePage extends StatelessWidget {
   // String username = "";
