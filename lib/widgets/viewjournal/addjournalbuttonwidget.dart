@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/journal.dart';
-import 'package:project_mobile/widgets/viewjournal/listalljournals.dart' as l;
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:project_mobile/widgets/viewjournal/listalljournals.dart' as l;
+//import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Addjournalbutton extends StatelessWidget {
   List<String> dropDown = <String>["Default", "Diary title", "Date"];

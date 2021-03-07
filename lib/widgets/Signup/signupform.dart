@@ -316,7 +316,7 @@ class SignUpFormState extends State<SignUpForm> {
                 if (!value.contains(validCharactersPassword)) {
                   return 'Please enter the correct format';
                 }
-                ;
+
                 return null;
               },
             ),

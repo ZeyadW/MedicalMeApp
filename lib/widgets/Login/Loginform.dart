@@ -116,6 +116,7 @@ class LoginFormState extends State<LoginForm> {
                   if (!value.contains('@')) {
                     return 'Please enter the correct email format';
                   }
+                  return null;
                 }),
           ),
           Padding(padding: EdgeInsets.only(top: 10.0)),

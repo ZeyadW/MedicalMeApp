@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/EditProfile.dart';
 
-class editprofilebutton extends StatelessWidget {
+class Editprofilebutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +28,7 @@ class editprofilebutton extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => EditProfilePage()),
-          ); 
+          );
         },
         child: Text(
           "Edit Profile",

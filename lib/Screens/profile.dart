@@ -35,8 +35,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: Colors.green[100],
               ),
             ),
-            editprofilebutton(),
-            emergencycontactsbutton(),
+            Editprofilebutton(),
+            Emergencycontactsbutton(),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
               width: 180,
