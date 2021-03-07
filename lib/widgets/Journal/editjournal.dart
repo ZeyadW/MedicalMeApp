@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/viewjournals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
+import 'package:shared_preferences/shared_preferences.dart';
 
 final db = FirebaseFirestore.instance;
+var email;
 
 class EditJournal extends StatefulWidget {
   var diary = d.Diaries();
@@ -24,13 +26,18 @@ class EditJournalState extends State<EditJournal> {
   EditJournalState(this.diary);
 
   Future<bool> UpdateJournal(diary, textcontroller, titlecontroller) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
     print('update journal');
-    print(this.diary.title);
+    print('title' + this.diary.title);
+    print(email);
     print('update journal');
 
     await FirebaseFirestore.instance
-        .collection('Diaries')
-        .doc(this.diary.title)
+        .collection("Users")
+        .doc(email)
+        .collection('Diary')
+        .doc(titlecontroller.text)
         .update({
       // 'title': titlecontroller.text,
       'text': textcontroller.text,
@@ -60,26 +67,6 @@ class EditJournalState extends State<EditJournal> {
                   blurRadius: 34,
                 ),
               ],
-            ),
-            child: TextFormField(
-              controller: titlecontroller,
-              style: TextStyle(color: Colors.green),
-              decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
-                  labelText: "Title",
-                  labelStyle: TextStyle(color: Colors.green),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green),
-                    borderRadius: BorderRadius.circular(21.0),
-                  )),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Enter Text';
-                }
-                return null;
-              },
             ),
           ),
           Padding(

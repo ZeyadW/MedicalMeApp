@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/viewjournals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JournalForm extends StatefulWidget {
   @override
@@ -13,13 +14,19 @@ DateTime now = new DateTime.now();
 DateTime date = new DateTime(now.year, now.month, now.day);
 
 class LoginFormState extends State<JournalForm> {
+  var email;
+
   Future<bool> createDiary(textcontroller, titlecontroller) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.email = prefs.getString('email');
     print("creating record");
     print(textcontroller.text);
-    await Firestore.instance
-        .collection("Diaries")
-        .document(titlecontroller.text)
-        .setData({
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(email)
+        .collection('Diary')
+        .doc(titlecontroller.text)
+        .set({
       'title': titlecontroller.text,
       'text': textcontroller.text,
       'timestamp': date
