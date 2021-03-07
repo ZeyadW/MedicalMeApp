@@ -2,6 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/addemergencycontact.dart';
 
 class Addemergencybutton extends StatelessWidget {
+/*
+Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: ContactProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: ContactsPage(),
+      ),
+    );
+  }
+*/
+
   @override
   Widget build(BuildContext context) {
     return Container(

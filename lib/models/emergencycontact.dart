@@ -2,23 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class EmergencyContact {
+class Contact {
   String name;
   String number;
   DocumentReference reference;
 
-  EmergencyContact({name, number}) {
+  Contact({name, number}) {
     this.name = name;
     this.number = number;
   }
 
-  EmergencyContact.fromMap(Map<String, dynamic> map, {this.reference})
+  Contact.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
         assert(map['phone'] != null),
         name = map['name'],
         number = map['phone'];
-  EmergencyContact.fromSnapshot(DocumentSnapshot snapshot)
+  Contact.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data(), reference: snapshot.reference);
+
+  /*List allcontacts() {
+    this.fromMap(snapshot.data(), reference: snapshot.reference);
+    snapshot.map((data) => _buildListItem(context, data)).toList();
+  }*/
 
   Future<bool> addcontact(phonecontroller, namecontroller) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

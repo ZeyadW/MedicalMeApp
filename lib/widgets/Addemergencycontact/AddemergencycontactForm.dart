@@ -3,6 +3,8 @@ import 'package:project_mobile/Screens/emergencycontact.dart';
 import 'package:project_mobile/models/emergencycontact.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import 'package:project_mobile/models/contactprovider.dart';
 
 class AddemergencycontactForm extends StatefulWidget {
   @override
@@ -18,11 +20,18 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
   var _passwordVisible;
   var email;
   var check;
-  EmergencyContact ec = new EmergencyContact();
+  Contact ec = new Contact();
   Future<bool> checkadd() async {
     check = await ec.addcontact(phonecontroller, namecontroller);
     print("in check add emergency ");
     if (check) {
+      Contact ec =
+          new Contact(number: phonecontroller.text, name: namecontroller.text);
+
+      ContactProvider contactProvider =
+          Provider.of<ContactProvider>(context, listen: false);
+      contactProvider.addContact(ec);
+      Navigator.of(context).pop();
       print("in check trueee ");
       return true;
     } else {
@@ -47,6 +56,8 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
   final _formKey = GlobalKey<FormState>();
   static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
 
+  static const pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+  final validatePhone = RegExp(pattern);
   @override
   Widget build(BuildContext context) {
     Widget okButton = FlatButton(
@@ -55,8 +66,8 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
       ),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
-        Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => ViewEmergencyContactscreen()));
+        /* Navigator.of(context).push(new MaterialPageRoute(
+            builder: (context) => ViewEmergencyContactscreen()));*/
       },
     );
     // Build a Form widget using the _formKey created above.
@@ -135,7 +146,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
                 if (value.isEmpty) {
                   return 'Please enter a number';
                 }
-                if (!value.contains(validCharacters)) {
+                if (!value.contains(validatePhone)) {
                   return 'Please enter the correct format';
                 }
 
@@ -168,11 +179,14 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
                   print("pressed button");
                   if (_formKey.currentState.validate()) {
                     print("form validated");
+
                     var add = await checkadd();
                     print(add);
                     if (add == true) {
-                      print("addddd truee before dialog");
-                      return showDialog(
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => ViewEmergencyContactscreen()));
+                      /*return showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
@@ -181,7 +195,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
                             actions: [okButton],
                           );
                         },
-                      );
+                      );*/
 
                       // If the form is valid, display a Snackbar.
 

@@ -11,7 +11,7 @@ class User {
   String email;
   String imagepath;
   String emergencycontactname;
-  List<EmergencyContact> emergencyContacts;
+  List<Contact> emergencyContacts;
   User(
       {this.username,
       this.password,

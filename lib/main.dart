@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'package:project_mobile/Screens/journal.dart';
 import 'package:project_mobile/Screens/viewjournals.dart';
 import 'Screens/welcomescreen (1).dart';
 import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
+import 'package:project_mobile/models/contactprovider.dart';
 import 'Screens/contactus.dart';
 import 'Screens/journal.dart';
 import 'Home.dart';
@@ -24,22 +25,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that yosu run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: ContactProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          // This makes the visual density adapt to the platform that yosu run
+          // the app on. For desktop platforms, the controls will be smaller and
+          // closer together (more dense) than on mobile platforms.
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: AutoLogin(),
+        routes: {
+          'home': (context) => HomePage(),
+          'Contact Us': (context) => ContactUs(),
+          'profile': (context) => ProfilePage(),
+          'addjournal': (context) => Journal(),
+        },
       ),
-      home: AutoLogin(),
-      routes: {
-        'home': (context) => HomePage(),
-        'Contact Us': (context) => ContactUs(),
-        'profile': (context) => ProfilePage(),
-        'addjournal': (context) => Journal(),
-      },
     );
   }
 }

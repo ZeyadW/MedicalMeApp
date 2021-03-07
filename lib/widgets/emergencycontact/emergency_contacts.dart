@@ -48,7 +48,7 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          print("empty snapshot");
+          // print("empty snapshot");
           return LinearProgressIndicator();
         }
         return _buildList(context, snapshot.data.docs);
@@ -65,7 +65,7 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     print(data.data());
     print("o0000");
-    final emergencyContact = EmergencyContact.fromSnapshot(data);
+    final emergencyContact = Contact.fromSnapshot(data);
 
     return Center(
         child: new SingleChildScrollView(
