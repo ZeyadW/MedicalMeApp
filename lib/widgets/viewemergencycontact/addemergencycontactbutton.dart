@@ -33,7 +33,8 @@ class Addemergencybutton extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Addemergencycontact()),
+                MaterialPageRoute(
+                    builder: (context) => Addemergencycontactscreen()),
               );
             },
           ),

@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../widgets/emergencycontact/emergency_contacts.dart';
 import '../widgets/emergencycontact/addemergencycontactbutton.dart';
 
-class ViewEmergencyContact extends StatelessWidget {
+class ViewEmergencyContactscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

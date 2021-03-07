@@ -15,6 +15,7 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
   String email;
 
   Future<void> www() async {
+    setEmail();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     this.email = prefs.getString('email');
 
@@ -23,7 +24,17 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
 
   void initState() {
     super.initState();
-    www();
+    setEmail();
+  }
+
+  Future<void> setEmail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.email = prefs.getString('email');
+    setState(() {
+      this.email = prefs.getString('email');
+    });
+
+    print(email);
   }
 
   Widget _buildBody(BuildContext context) {
@@ -62,8 +73,8 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
                 child: ListTile(
       leading: Image(image: AssetImage('images/Icons- ambulance.jpeg')),
       trailing: IconButton(
-        onPressed: () {
-          //    deleteDiary(diary);
+        onPressed: () async {
+          emergencyContact.deletecontact(emergencyContact.number);
         },
         icon: Icon(Icons.delete),
         color: Colors.red,
@@ -112,33 +123,6 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
           color: Colors.white,
         ),
         child: _buildBody(context),
-        /* child: ListView.builder(
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading:
-                    Image(image: AssetImage('images/Icons- ambulance.jpeg')),
-                title: Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
-                    child: FlatButton(
-                      child: Text('Zeyad'),
-                      onPressed: () {},
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
-                    child: Text(
-                      '01067191933',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  )
-                ]),
-              );
-            },
-          )*/
       ),
     ));
   }

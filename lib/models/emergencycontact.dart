@@ -23,15 +23,32 @@ class EmergencyContact {
   Future<bool> addcontact(phonecontroller, namecontroller) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var email = prefs.getString('email');
+    print("emaiilll in addd contact ");
+    print(email);
     await Firestore.instance
         .collection("Users")
         .doc(email)
-        .collection('Diary')
+        .collection('EmergecyContacts')
         .doc(phonecontroller.text)
         .set({
       'name': namecontroller.text,
       'phone': phonecontroller.text,
     });
+    print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu ");
+    return true;
+  }
+
+  Future<bool> deletecontact(contact) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var email = prefs.getString('email');
+    await Firestore.instance
+        .collection("Users")
+        .doc(email)
+        .collection('EmergecyContacts')
+        .doc(contact)
+        .delete();
+
+    print("deleting record");
     return true;
   }
 }

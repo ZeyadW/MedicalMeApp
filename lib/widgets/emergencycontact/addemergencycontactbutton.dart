@@ -17,7 +17,7 @@ class Addemergencybutton extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            left: 10.0,
+            left: 0.0,
             top: 10.0,
             right: 0.0,
             bottom: 0.0,
@@ -33,7 +33,8 @@ class Addemergencybutton extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Addemergencycontact()),
+                MaterialPageRoute(
+                    builder: (context) => Addemergencycontactscreen()),
               );
             },
           ),

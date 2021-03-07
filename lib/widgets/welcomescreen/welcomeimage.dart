@@ -9,7 +9,7 @@ class Himage extends StatelessWidget {
         children: [
           Image.asset(
             'images/icon.png',
-            width: 400,
+            width: 350,
             height: 40,
           )
         ],
