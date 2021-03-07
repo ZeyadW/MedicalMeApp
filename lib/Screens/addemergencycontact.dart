@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../widgets/Addemergencycontact/AddemergencycontactForm.dart';
+import 'package:project_mobile/widgets/Addemergencycontact/AddemergencycontactForm.dart';
 
-class Addemergencycontact extends StatelessWidget {
+class Addemergencycontactscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var row1 = Row(

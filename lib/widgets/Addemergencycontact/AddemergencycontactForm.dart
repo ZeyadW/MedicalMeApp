@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/emergencycontact.dart';
+import 'package:project_mobile/models/emergencycontact.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddemergencycontactForm extends StatefulWidget {
   @override
@@ -10,19 +13,37 @@ class AddemergencycontactForm extends StatefulWidget {
 
 class AddemergencycontactFormState extends State<AddemergencycontactForm> {
   FocusNode myFocusNode;
+  final namecontroller = TextEditingController();
+  final phonecontroller = TextEditingController();
   var _passwordVisible;
+  var email;
+  var check;
+  EmergencyContact ec = new EmergencyContact();
+  Future<bool> checkadd() async {
+    check = await ec.addcontact(phonecontroller, namecontroller);
+    print("in check add emergency ");
+    if (check) {
+      print("in check trueee ");
+      return true;
+    } else {
+      print("in check falseeeeeeeeeee ");
+      return false;
+    }
+  }
+
+  Future<void> www() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.email = prefs.getString('email');
+  }
+
   @override
   void initState() {
+    www();
     _passwordVisible = true;
     super.initState();
     myFocusNode = FocusNode();
   }
 
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
 
@@ -35,7 +56,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => ViewEmergencyContact()));
+            builder: (context) => ViewEmergencyContactscreen()));
       },
     );
     // Build a Form widget using the _formKey created above.
@@ -58,6 +79,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
               ],
             ),
             child: TextFormField(
+              controller: namecontroller,
               autofocus: true,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
@@ -77,7 +99,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
                 if (!value.contains(validCharacters)) {
                   return 'Please enter the correct format';
                 }
-                ;
+
                 return null;
               },
             ),
@@ -96,6 +118,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
               ],
             ),
             child: TextFormField(
+              controller: phonecontroller,
               autofocus: true,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
@@ -115,7 +138,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
                 if (!value.contains(validCharacters)) {
                   return 'Please enter the correct format';
                 }
-                ;
+
                 return null;
               },
             ),
@@ -141,22 +164,28 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
             child: Align(
               alignment: Alignment.topCenter,
               child: FlatButton(
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false
-                  // otherwise.
+                onPressed: () async {
+                  print("pressed button");
                   if (_formKey.currentState.validate()) {
-                    return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text("Emergency Contact added successfully"),
-                          actions: [okButton],
-                        );
-                      },
-                    );
+                    print("form validated");
+                    var add = await checkadd();
+                    print(add);
+                    if (add == true) {
+                      print("addddd truee before dialog");
+                      return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content:
+                                Text("Emergency Contact added successfully"),
+                            actions: [okButton],
+                          );
+                        },
+                      );
 
-                    // If the form is valid, display a Snackbar.
+                      // If the form is valid, display a Snackbar.
 
+                    }
                   }
                 },
                 child: Text('Add Emergency Contact'),

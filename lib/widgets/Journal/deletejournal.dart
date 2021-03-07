@@ -20,18 +20,6 @@ class DeleteJournalState extends State<DeleteJournal> {
   var diary; //= d.Diaries();
   DeleteJournalState(diary);
 
-  Future<bool> deleteDiary(diary) async {
-    print('delete diary');
-    print(diary.title);
-    await Firestore.instance
-        .collection('Diaries')
-        .document(diary.title)
-        .delete();
-
-    print("deleting record");
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(

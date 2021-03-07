@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/emergencycontact.dart';
+import 'package:project_mobile/widgets/Addemergencycontact/AddemergencycontactForm.dart';
+import 'package:project_mobile/widgets/emergencycontact/emergency_contacts.dart';
 
 class Emergencycontactsbutton extends StatelessWidget {
   @override
@@ -27,7 +29,8 @@ class Emergencycontactsbutton extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ViewEmergencyContact()),
+            MaterialPageRoute(
+                builder: (context) => ViewEmergencyContactscreen()),
           );
         },
         child: Text(

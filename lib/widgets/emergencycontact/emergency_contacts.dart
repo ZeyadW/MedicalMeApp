@@ -12,19 +12,34 @@ class Listemergencycontacts extends StatefulWidget {
 
 class _Listemergencycontacts extends State<Listemergencycontacts> {
   //EmergencyContact kk = new EmergencyContact();
-  var email;
+  String email;
+
   Future<void> www() async {
+    setEmail();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     this.email = prefs.getString('email');
+
+    print(email);
   }
 
   void initState() {
     super.initState();
-    www();
+    setEmail();
   }
 
-  Widget _buildBody(BuildContext context, email) {
-    print("build body");
+  Future<void> setEmail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.email = prefs.getString('email');
+    setState(() {
+      this.email = prefs.getString('email');
+    });
+
+    print(email);
+  }
+
+  Widget _buildBody(BuildContext context) {
+    print('build body');
+    print(email);
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('Users')
@@ -58,8 +73,8 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
                 child: ListTile(
       leading: Image(image: AssetImage('images/Icons- ambulance.jpeg')),
       trailing: IconButton(
-        onPressed: () {
-          //    deleteDiary(diary);
+        onPressed: () async {
+          emergencyContact.deletecontact(emergencyContact.number);
         },
         icon: Icon(Icons.delete),
         color: Colors.red,
@@ -107,34 +122,7 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
           ),
           color: Colors.white,
         ),
-        child: _buildBody(context, email),
-        /* child: ListView.builder(
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading:
-                    Image(image: AssetImage('images/Icons- ambulance.jpeg')),
-                title: Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 200, 0),
-                    child: FlatButton(
-                      child: Text('Zeyad'),
-                      onPressed: () {},
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
-                    child: Text(
-                      '01067191933',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  )
-                ]),
-              );
-            },
-          )*/
+        child: _buildBody(context),
       ),
     ));
   }
