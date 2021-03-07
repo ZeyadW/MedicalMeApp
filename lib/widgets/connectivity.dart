@@ -1,39 +1,10 @@
-import 'package:connectivity/connectivity.dart';
+//import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Home.dart';
 import 'package:project_mobile/Screens/welcomescreen%20(1).dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /*
-class Connect extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Routing & Navigation"),
-        ),
-        body: StreamBuilder(
-            stream: Connectivity().onConnectivityChanged,
-            builder: (BuildContext ctxt,
-                AsyncSnapshot<ConnectivityResult> snapShot) {
-              if (!snapShot.hasData) return CircularProgressIndicator();
-              var result = snapShot.data;
-              switch (result) {
-                case ConnectivityResult.none:
-                  print("no net");
-                  return Center(child: Text("No Internet Connection!"));
-                case ConnectivityResult.mobile:
-                case ConnectivityResult.wifi:
-                  print("yes net");
-                  return Center(
-                    child: Text('Welcome to home Page'),
-                  );
-                default:
-                  return Center(child: Text("No Internet Connection!"));
-              }
-            }));
-  }
-}*/
 
 class HomeConnect extends StatefulWidget {
   @override
@@ -113,7 +84,7 @@ class _HomeConnectState extends State<HomeConnect> {
     }
   }
 }
-
+*/
 class AutoLogin extends StatefulWidget {
   @override
   _AutoLogin createState() => _AutoLogin();
@@ -124,12 +95,15 @@ class _AutoLogin extends State<AutoLogin> {
 
   bool isLoggedIn = false;
   String name = '';
+  String email = '';
 
   String userId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: !isLoggedIn ? WelcomeScreen() : HomePage.username(username: userId),
+      body: !isLoggedIn
+          ? WelcomeScreen()
+          : HomePage.username(username: userId, email: email),
     );
   }
 
@@ -142,6 +116,7 @@ class _AutoLogin extends State<AutoLogin> {
   void autoLogIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     this.userId = prefs.getString('username');
+    this.email = prefs.getString('email');
     this.isLoggedIn = prefs.getBool('isLoggedIn');
 
     if (userId != null) {
@@ -158,6 +133,7 @@ class _AutoLogin extends State<AutoLogin> {
   Future<Null> logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('username', null);
+    prefs.setString('email', null);
     prefs.setBool('isLoggedIn', false);
     this.isLoggedIn = false;
     setState(() {

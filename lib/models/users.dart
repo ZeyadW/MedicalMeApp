@@ -84,6 +84,7 @@ class Users {
         print("correct password in log in ");
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('username', this.username);
+        prefs.setString('email', email);
         prefs.setBool('isLoggedIn', true);
         print("username");
         print(prefs.getString("username"));

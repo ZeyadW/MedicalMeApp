@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/Screens/editjournal.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
 import 'package:project_mobile/widgets/viewjournal/addjournalbuttonwidget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ListAllJournals extends StatefulWidget {
   @override
@@ -13,12 +14,33 @@ class ListAllJournals extends StatefulWidget {
 
 class _ListAllJournalState extends State<ListAllJournals> {
   var diary = new d.Diaries();
+  var email;
+  @override
+  void initState() {
+    super.initState();
+
+    setEmail(); // calls getconnect method to check which type if connection it
+  }
+
   Future<bool> deleteDiary(diary) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.email = prefs.getString('email');
     await FirebaseFirestore.instance
-        .collection('Diaries')
+        .collection("Users")
+        .doc(email)
+        .collection('Diary')
         .doc(diary.title)
         .delete();
 
+    return true;
+  }
+
+  Future<bool> setEmail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
+    setState(() {
+      email = prefs.getString('email');
+    });
     return true;
   }
 
@@ -46,7 +68,9 @@ class _ListAllJournalState extends State<ListAllJournals> {
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
-          .collection('Diaries')
+          .collection("Users")
+          .doc(email)
+          .collection('Diary')
           .orderBy('title', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -124,6 +148,3 @@ Widget build(BuildContext context) {
     ),
   );
 }
-
-DateTime now = new DateTime.now();
-DateTime date = new DateTime(now.year, now.month, now.day);

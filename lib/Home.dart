@@ -14,8 +14,9 @@ class HomePage extends StatelessWidget {
   // String username = "";
   // Future<User> user;
   User u = new User();
-  HomePage.username({String username}) {
+  HomePage.username({String username, String email}) {
     this.u.username = username;
+    this.u.email = email;
   }
   HomePage.ut({this.u});
   // HomePage.ul({this.user});
