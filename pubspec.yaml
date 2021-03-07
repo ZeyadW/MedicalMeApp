@@ -44,6 +44,8 @@ dependencies:
   firebase_core: ^0.5.3
  # firebase_auth: ^0.16.0
   firebase_auth: ^0.18.4
+  day_picker: 1.0.1
+  weekday_selector: ^0.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
