@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/emergencycontact.dart';
+import 'package:project_mobile/models/emergencycontact.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddemergencycontactForm extends StatefulWidget {
   @override
@@ -10,19 +13,55 @@ class AddemergencycontactForm extends StatefulWidget {
 
 class AddemergencycontactFormState extends State<AddemergencycontactForm> {
   FocusNode myFocusNode;
+  TextEditingController namecontroller;
+  TextEditingController phonecontroller;
   var _passwordVisible;
+  var email;
+  var check;
+  /* EmergencyContact ec = new EmergencyContact();
+  Future<bool> checkadd() async {
+    check =
+        await validatelogin(emailcontroller.text, passwordcontroller.text);
+    print("in chekkkkkkk user ");
+    print(u);
+    if (u != null) {
+      print("in  checkuser not null user");
+      print(u.toString());
+      print(u.username);
+      return true;
+    } else {
+      print("in  checkuser null user");
+
+      return false;
+    }
+  }*/
+
+  Future<void> www() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.email = prefs.getString('email');
+  }
+
+/*
+  Future<bool> addcontact(phonecontroller, namecontroller) async {
+    await Firestore.instance
+        .collection("Users")
+        .doc(email)
+        .collection('Diary')
+        .doc(phonecontroller.text)
+        .set({
+      'name': namecontroller.text,
+      'phone': phonecontroller.text,
+    });
+  }
+*/
   @override
   void initState() {
+    www();
     _passwordVisible = true;
     super.initState();
     myFocusNode = FocusNode();
   }
 
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
 
@@ -58,6 +97,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
               ],
             ),
             child: TextFormField(
+              controller: namecontroller,
               autofocus: true,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
@@ -96,6 +136,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
               ],
             ),
             child: TextFormField(
+              controller: phonecontroller,
               autofocus: true,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
@@ -145,6 +186,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
                   // Validate returns true if the form is valid, or false
                   // otherwise.
                   if (_formKey.currentState.validate()) {
+                    // addcontact(phonecontroller, namecontroller);
                     return showDialog(
                       context: context,
                       builder: (context) {
