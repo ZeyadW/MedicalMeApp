@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project_mobile/models/emergencycontact.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class User {
   String username;
@@ -9,7 +11,7 @@ class User {
   String email;
   String imagepath;
   String emergencycontactname;
-
+  List<EmergencyContact> emergencyContacts;
   User(
       {this.username,
       this.password,
@@ -18,6 +20,7 @@ class User {
       this.email,
       this.imagepath,
       this.emergencycontactname});
+
   String getusername() {
     return username;
   }
@@ -28,37 +31,6 @@ class User {
 }
 
 class Users {
-  /*List<User> myusers = [
-    User(
-        //0
-        username: "zahwa",
-        password: "123456z",
-        emergencycontact: "01110864421",
-        date: "date",
-        email: "email"),
-    User(
-        //1
-        username: "maria",
-        password: "1234m",
-        emergencycontact: "01110864421",
-        date: "date",
-        email: "email"),
-    User(
-        //2
-        username: "zeyad",
-        password: "1234zz",
-        emergencycontact: "01110864421",
-        date: "date",
-        email: "email"),
-    User(
-        //3
-        username: "khazbak",
-        password: "1234k",
-        emergencycontact: "01110864421",
-        date: "date",
-        email: "email"),
-  ];*/
-
   User signup(
       username, password, emergency, date, email, emergencycontactname) {
     adduser(username, password, emergency, date, email, emergencycontactname);
@@ -110,7 +82,13 @@ class Users {
         this.username = variable.get("username");
 
         print("correct password in log in ");
-        //return Future<bool>.value(true);
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('username', this.username);
+        prefs.setBool('isLoggedIn', true);
+        print("username");
+        print(prefs.getString("username"));
+        print("isloged o]inn");
+        print(prefs.getBool("isLoggedIn"));
         return true;
       } else {
         //print("variable.data().containsValue(password)");

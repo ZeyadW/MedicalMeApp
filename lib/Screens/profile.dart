@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_mobile/Screens/welcomescreen%20(1).dart';
 import '../widgets/profile/editprofilebutton.dart';
 import '../widgets/profile/emergencycontactsbutton.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -56,10 +58,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               child: FlatButton(
                 onPressed: () {
-                  /* Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => logout()),
-                  );*/
+                  logout();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => WelcomeScreen()));
                 },
                 child: Text(
                   "Log Out",
@@ -71,4 +72,10 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+}
+
+Future<Null> logout() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('username', null);
+  prefs.setBool('isLoggedIn', false);
 }

@@ -1,6 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:project_mobile/Home.dart';
 import 'package:project_mobile/Screens/welcomescreen%20(1).dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 /*
 class Connect extends StatelessWidget {
   @override
@@ -53,8 +56,8 @@ class _HomeConnectState extends State<HomeConnect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isInternetOn ? WelcomeScreen() : buildAlertDialog(),
-      /* body: isInternetOn
+      body: isInternetOn ? AutoLogin() : buildAlertDialog(),
+      /*  body: isInternetOn
           ? iswificonnected
               ? showWifi()
               : showMobile()
@@ -108,5 +111,70 @@ class _HomeConnectState extends State<HomeConnect> {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       iswificonnected = true;
     }
+  }
+}
+
+class AutoLogin extends StatefulWidget {
+  @override
+  _AutoLogin createState() => _AutoLogin();
+}
+
+class _AutoLogin extends State<AutoLogin> {
+  TextEditingController nameController = TextEditingController();
+
+  bool isLoggedIn = false;
+  String name = '';
+
+  String userId;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: !isLoggedIn ? WelcomeScreen() : HomePage.username(username: userId),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    autoLogIn();
+  }
+
+  void autoLogIn() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.userId = prefs.getString('username');
+    this.isLoggedIn = prefs.getBool('isLoggedIn');
+
+    if (userId != null) {
+      setState(() {
+        prefs.setBool('isLoggedIn', true);
+
+        isLoggedIn = true;
+        name = userId;
+      });
+      return;
+    }
+  }
+
+  Future<Null> logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', null);
+    prefs.setBool('isLoggedIn', false);
+    this.isLoggedIn = false;
+    setState(() {
+      name = '';
+      isLoggedIn = false;
+    });
+  }
+
+  Future<Null> loginUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', nameController.text);
+
+    setState(() {
+      name = nameController.text;
+      isLoggedIn = true;
+    });
+
+    nameController.clear();
   }
 }
