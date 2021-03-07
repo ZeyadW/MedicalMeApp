@@ -12,10 +12,13 @@ class Listemergencycontacts extends StatefulWidget {
 
 class _Listemergencycontacts extends State<Listemergencycontacts> {
   //EmergencyContact kk = new EmergencyContact();
-  var email;
+  String email;
+
   Future<void> www() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     this.email = prefs.getString('email');
+
+    print(email);
   }
 
   void initState() {
@@ -23,8 +26,9 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
     www();
   }
 
-  Widget _buildBody(BuildContext context, email) {
-    print("build body");
+  Widget _buildBody(BuildContext context) {
+    print('build body');
+    print(email);
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('Users')
@@ -107,7 +111,7 @@ class _Listemergencycontacts extends State<Listemergencycontacts> {
           ),
           color: Colors.white,
         ),
-        child: _buildBody(context, email),
+        child: _buildBody(context),
         /* child: ListView.builder(
             itemBuilder: (context, index) {
               return ListTile(
