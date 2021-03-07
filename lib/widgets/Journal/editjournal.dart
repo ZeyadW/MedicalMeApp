@@ -28,10 +28,6 @@ class EditJournalState extends State<EditJournal> {
   Future<bool> UpdateJournal(diary, textcontroller, titlecontroller) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email');
-    print('update journal');
-    print('title' + this.diary.title);
-    print(email);
-    print('update journal');
 
     await FirebaseFirestore.instance
         .collection("Users")
