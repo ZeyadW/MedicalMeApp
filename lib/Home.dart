@@ -9,20 +9,23 @@ import 'Screens/viewreminders.dart';
 //import 'Screens/viewjournals.dart';
 import 'Screens/searchfaq.dart';
 import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   // String username = "";
   // Future<User> user;
   User u = new User();
-  HomePage.username({String username, String email}) {
+  HomePage.username({String username, String email, var phone}) {
     this.u.username = username;
     this.u.email = email;
+    this.u.emergencycontact = phone;
   }
   HomePage.ut({this.u});
   // HomePage.ul({this.user});
   HomePage();
   @override
   Widget build(BuildContext context) {
+    print(u.emergencycontact);
     var row1 = Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,8 +156,12 @@ class HomePage extends StatelessWidget {
                 ),
                 child: FlatButton(
                   child: Text(
-                    "SOS",
+                    'SOS',
+                    style: TextStyle(fontSize: 15, color: Colors.black),
                   ),
+                  onPressed: () {
+                    launch("tel://${u.emergencycontact}");
+                  },
                 ),
               )
             ],

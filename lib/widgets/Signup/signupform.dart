@@ -7,14 +7,12 @@ import '../../Home.dart';
 
 const pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
 final validatePhone = RegExp(pattern);
-
 class SignUpForm extends StatefulWidget {
   @override
   SignUpFormState createState() {
     return SignUpFormState();
   }
 }
-
 class SignUpFormState extends State<SignUpForm> {
   var _passwordVisible;
   @override
@@ -22,7 +20,6 @@ class SignUpFormState extends State<SignUpForm> {
     _passwordVisible = false;
     super.initState();
   }
-
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -31,7 +28,7 @@ class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
 
-  static final validCharactersPassword = RegExp(r'^[a-zA-Z0-9_\-=@\.;]+$');
+  static final validCharactersPassword = RegExp(r'^[a-zA-Z0-9_\-=@\.;]{6,}+$'); 
   static final validateDate = RegExp("[0-9/]");
   Users u = new Users();
   final usernamecontroller = TextEditingController();

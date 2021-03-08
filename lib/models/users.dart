@@ -81,6 +81,7 @@ class Users {
   }
 
   String username;
+  var phone;
   Future<bool> login1(email, password) async {
     //CollectionReference users = FirebaseFirestore.instance.collection('Users');
     DocumentSnapshot variable =
@@ -94,6 +95,7 @@ class Users {
       if (passworduser == password) {
         //print(variable.get("username"));
         this.username = variable.get("username");
+        this.phone = variable.get("emergencyphone");
         //print("correct password in log in ");
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('username', this.username);
@@ -112,7 +114,8 @@ class Users {
     var log1 = await login1(email, password);
 
     if (log1) {
-      User u = User(email: email, username: this.username);
+      User u = User(
+          email: email, username: this.username, emergencycontact: this.phone);
 
       return u;
     } else {

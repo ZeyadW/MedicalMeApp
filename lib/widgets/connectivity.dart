@@ -96,6 +96,7 @@ class _AutoLogin extends State<AutoLogin> {
   bool isLoggedIn = false;
   String name = '';
   String email = '';
+  var phone;
 
   String userId;
   @override
@@ -103,7 +104,7 @@ class _AutoLogin extends State<AutoLogin> {
     return Scaffold(
       body: !isLoggedIn
           ? WelcomeScreen()
-          : HomePage.username(username: userId, email: email),
+          : HomePage.username(username: userId, email: email, phone: phone),
     );
   }
 
@@ -117,6 +118,7 @@ class _AutoLogin extends State<AutoLogin> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     this.userId = prefs.getString('username');
     this.email = prefs.getString('email');
+    this.phone = prefs.getString('emergencyphone');
     this.isLoggedIn = prefs.getBool('isLoggedIn');
     print('autologin emai');
     print(email);
