@@ -1,4 +1,9 @@
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EditProfileForm extends StatefulWidget {
   @override
@@ -8,12 +13,15 @@ class EditProfileForm extends StatefulWidget {
 }
 
 class EditProfileFormState extends State<EditProfileForm> {
+  var email;
   var _passwordVisible;
+  var variable;
   FocusNode myFocusNode;
   @override
   void initState() {
     _passwordVisible = false;
     super.initState();
+    getUser(email);
     myFocusNode = FocusNode();
   }
 
@@ -23,8 +31,41 @@ class EditProfileFormState extends State<EditProfileForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  Future<bool> getUser(email) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
+    variable =
+        await FirebaseFirestore.instance.collection('Users').doc(email).get();
+    setState(() {
+      email = prefs.getString('email');
+    });
+  }
+
+  String convertDateTimeDisplay(String date) {
+    final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
+    final DateFormat serverFormater = DateFormat('dd/MM/yyyy');
+    final DateTime displayDate = displayFormater.parse(date);
+    final String formatted = serverFormater.format(displayDate);
+    return formatted;
+  }
+
   @override
   Widget build(BuildContext context) {
+    DateTime selectedDate;
+    var username = variable.get("username");
+    var password = variable.get("password");
+    var emergencyphone = variable.get("emergencyphone");
+    var emergencyname = variable.get("emergencyname");
+    print(variable.get("birthdate"));
+    var birthdate = variable.get("birthdate").toDate().toString();
+    var finaldate = convertDateTimeDisplay(birthdate);
+    final usernamecontroller = TextEditingController(text: username);
+    final passwordcontroller = TextEditingController(text: password);
+    final datecontroller = TextEditingController(text: finaldate);
+    final emergencyphonecontroller =
+        TextEditingController(text: emergencyphone);
+    final emergencynamecontroller = TextEditingController(text: emergencyname);
+
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -45,6 +86,7 @@ class EditProfileFormState extends State<EditProfileForm> {
               ],
             ),
             child: TextFormField(
+              controller: usernamecontroller,
               autofocus: true,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
@@ -78,24 +120,21 @@ class EditProfileFormState extends State<EditProfileForm> {
                 ),
               ],
             ),
-            child: TextFormField(
-              focusNode: myFocusNode,
-              style: TextStyle(color: Colors.green),
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.date_range),
-                  labelText: 'DD/MM/YY',
-                  labelStyle: TextStyle(color: Colors.green),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green),
-                    borderRadius: BorderRadius.circular(21.0),
-                  )),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
+            child: DateTimeFormField(
+              decoration: const InputDecoration(
+                hintStyle: TextStyle(color: Colors.black45),
+                errorStyle: TextStyle(color: Colors.redAccent),
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.event_note),
+                labelText: 'Birth-Date',
+              ),
+              mode: DateTimeFieldPickerMode.date,
+              autovalidateMode: AutovalidateMode.always,
+              validator: (e) =>
+                  (e?.day ?? 0) == null ? 'choose an aproprite date.' : null,
+              onDateSelected: (DateTime value) {
+                print(value);
+                selectedDate = value;
               },
             ),
           ),
@@ -113,6 +152,7 @@ class EditProfileFormState extends State<EditProfileForm> {
               ],
             ),
             child: TextFormField(
+              controller: emergencyphonecontroller,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.add_alert),
@@ -145,25 +185,6 @@ class EditProfileFormState extends State<EditProfileForm> {
                 ),
               ],
             ),
-            child: TextFormField(
-              style: TextStyle(color: Colors.green),
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  labelText: 'Email',
-                  labelStyle: TextStyle(color: Colors.green),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green),
-                    borderRadius: BorderRadius.circular(21.0),
-                  )),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
           ),
           Padding(padding: EdgeInsets.only(top: 10.0)),
           Container(
@@ -179,6 +200,7 @@ class EditProfileFormState extends State<EditProfileForm> {
               ],
             ),
             child: TextFormField(
+              controller: passwordcontroller,
               obscureText: !_passwordVisible,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(

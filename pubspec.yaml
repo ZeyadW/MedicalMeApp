@@ -35,6 +35,9 @@ dependencies:
   image_picker: ^0.6.7+11
   phone_number: ^0.8.1
   http: ^0.12.2
+  intl: ^0.16.1
+  syncfusion_flutter_datepicker: ^18.4.44-beta
+  date_field: ^1.0.5
   #connectivity: ^0.4.2
   #cloud_firestore: ^0.13.0+1
   cloud_firestore: ^0.14.4
@@ -42,6 +45,8 @@ dependencies:
   firebase_core: ^0.5.3
  # firebase_auth: ^0.16.0
   firebase_auth: ^0.18.4
+  day_picker: 1.0.1
+  weekday_selector: ^0.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

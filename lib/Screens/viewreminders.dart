@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'searchmedicine.dart';
@@ -6,7 +7,7 @@ import '../widgets/reminders/reminderlistview.dart';
 import '../widgets/reminders/Remindertitle.dart';
 import '../widgets/reminders/bodystate.dart';
 
-class ViewReminders extends StatelessWidget {
+class _ViewReminders extends State<ViewReminders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +23,17 @@ class ViewReminders extends StatelessWidget {
             Remindertitle(),
             Padding(padding: EdgeInsets.only(top: 20.0)),
             BodyState(),
-            Center(
-                child: new SingleChildScrollView(
+            new SingleChildScrollView(
               child: ReminderListview(),
-            )),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class ViewReminders extends StatefulWidget {
+  @override
+  _ViewReminders createState() => _ViewReminders();
 }

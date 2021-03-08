@@ -131,20 +131,3 @@ class _ListAllJournalState extends State<ListAllJournals> {
     ))));
   }
 }
-
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: const Color(0xffe0ecde),
-    appBar: AppBar(
-      backgroundColor: const Color(0xff68b2a0),
-//            title: Center(child: Image(image: AssetImage('images/Icon.png'))),
-    ),
-    body: Column(
-      children: [
-        Addjournalbutton(),
-        ListAllJournals(),
-      ],
-    ),
-  );
-}
