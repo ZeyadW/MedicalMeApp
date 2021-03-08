@@ -118,7 +118,7 @@ class _AutoLogin extends State<AutoLogin> {
     this.userId = prefs.getString('username');
     this.email = prefs.getString('email');
     this.isLoggedIn = prefs.getBool('isLoggedIn');
-    print('autologin email');
+    print('autologin emai');
     print(email);
     if (userId != null) {
       setState(() {

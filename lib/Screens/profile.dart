@@ -77,5 +77,6 @@ class _ProfilePageState extends State<ProfilePage> {
 Future<Null> logout() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('username', null);
+  prefs.setString('email', null);
   prefs.setBool('isLoggedIn', false);
 }
