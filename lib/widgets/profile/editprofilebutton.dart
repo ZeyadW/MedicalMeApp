@@ -27,7 +27,7 @@ class Editprofilebutton extends StatelessWidget {
         onPressed: () async {
           await Navigator.push(
             context,
-            MaterialPageRoute(builder: await (context) => EditProfilePage()),
+            MaterialPageRoute(builder: (context) => EditProfilePage()),
           );
         },
         child: Text(
