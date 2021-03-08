@@ -89,6 +89,17 @@ class Reminder {
     return true;
   }
 
+  void updatedays(reminder, daysarray) {
+    _db
+        .collection("Users")
+        .doc(email)
+        .collection("Reminders")
+        .doc(remindername)
+        .update({
+      "days": daysarray,
+    });
+  }
+
   Future<bool> updatereminder(reminder, _remindersTxtController, _rtypeItem,
       daysarray, cStrt, cEnd, hrController) async {
     print("hey");
