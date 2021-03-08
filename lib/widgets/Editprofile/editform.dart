@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:project_mobile/models/users.dart';
+import 'package:project_mobile/Screens/EditProfile.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EditProfileForm extends StatefulWidget {
@@ -13,7 +15,9 @@ class EditProfileForm extends StatefulWidget {
 }
 
 class EditProfileFormState extends State<EditProfileForm> {
+  EditProfileFormState();
   var email;
+  var username;
   var _passwordVisible;
   var variable;
   FocusNode myFocusNode;
@@ -21,8 +25,67 @@ class EditProfileFormState extends State<EditProfileForm> {
   void initState() {
     _passwordVisible = false;
     super.initState();
-    getUser(email);
+    getUser();
     myFocusNode = FocusNode();
+  }
+
+  Future<bool> getUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
+    this.username = prefs.getString('username');
+    variable =
+        await FirebaseFirestore.instance.collection('Users').doc(email).get();
+    if (variable == null) {
+      variable.username = username;
+    }
+    setState(() {
+      email = prefs.getString('email');
+    });
+  }
+
+  Future<bool> EditProfile(usernamecontroller, selectedDate, passwordcontroller,
+      newpasswordcontroller) async {
+    Widget okButton = FlatButton(
+      child: Text(
+        "Ok",
+      ),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).push(
+            new MaterialPageRoute(builder: (context) => EditProfilePage()));
+      },
+    );
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
+    /*DocumentSnapshot variable =
+        await Firestore.instance.collection('Users').document(email).get();*/
+
+    print('ay klam');
+    print(passwordcontroller.text);
+    print(newpasswordcontroller.text);
+    print(selectedDate);
+
+    print('ay klam');
+    var passworduser = variable.get("password");
+    if (passworduser == passwordcontroller.text) {
+      await FirebaseFirestore.instance.collection("Users").doc(email).update({
+        'birthdate': selectedDate,
+        'password': newpasswordcontroller.text,
+        'username': usernamecontroller.text,
+      });
+    } else {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text("wrong password"),
+            actions: [okButton],
+          );
+        },
+      );
+    }
+
+    return true;
   }
 
   // Create a global key that uniquely identifies the Form widget
@@ -31,15 +94,6 @@ class EditProfileFormState extends State<EditProfileForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
-  Future<bool> getUser(email) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    email = prefs.getString('email');
-    variable =
-        await FirebaseFirestore.instance.collection('Users').doc(email).get();
-    setState(() {
-      email = prefs.getString('email');
-    });
-  }
 
   String convertDateTimeDisplay(String date) {
     final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
@@ -52,19 +106,17 @@ class EditProfileFormState extends State<EditProfileForm> {
   @override
   Widget build(BuildContext context) {
     DateTime selectedDate;
-    var username = variable.get("username");
-    var password = variable.get("password");
-    var emergencyphone = variable.get("emergencyphone");
-    var emergencyname = variable.get("emergencyname");
-    print(variable.get("birthdate"));
+    //var username = variable.get("username");
+    print('hamada');
+    print(variable.get("username"));
+    print('hamada');
     var birthdate = variable.get("birthdate").toDate().toString();
+    print(birthdate);
     var finaldate = convertDateTimeDisplay(birthdate);
     final usernamecontroller = TextEditingController(text: username);
-    final passwordcontroller = TextEditingController(text: password);
+    final passwordcontroller = TextEditingController();
+    final newpasswordcontroller = TextEditingController();
     final datecontroller = TextEditingController(text: finaldate);
-    final emergencyphonecontroller =
-        TextEditingController(text: emergencyphone);
-    final emergencynamecontroller = TextEditingController(text: emergencyname);
 
     // Build a Form widget using the _formKey created above.
     return Form(
@@ -151,7 +203,7 @@ class EditProfileFormState extends State<EditProfileForm> {
                 ),
               ],
             ),
-            child: TextFormField(
+            /*child: TextFormField(
               controller: emergencyphonecontroller,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
@@ -170,7 +222,7 @@ class EditProfileFormState extends State<EditProfileForm> {
                 }
                 return null;
               },
-            ),
+            ),*/
           ),
           Padding(padding: EdgeInsets.only(top: 10.0)),
           Container(
@@ -248,6 +300,7 @@ class EditProfileFormState extends State<EditProfileForm> {
               ],
             ),
             child: TextFormField(
+              controller: newpasswordcontroller,
               obscureText: !_passwordVisible,
               style: TextStyle(color: Colors.green),
               decoration: InputDecoration(
@@ -302,7 +355,8 @@ class EditProfileFormState extends State<EditProfileForm> {
             child: Align(
               alignment: Alignment.topCenter,
               child: FlatButton(
-                onPressed: () => myFocusNode.requestFocus(),
+                onPressed: () => EditProfile(usernamecontroller, selectedDate,
+                    passwordcontroller, newpasswordcontroller),
                 child: Text('Edit'),
               ),
             ),

@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../widgets/Editprofile/editform.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   @override
+  _EditProfilePageState createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  @override
+  var variable;
+  Future<bool> getUser(email) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
+    variable =
+        await FirebaseFirestore.instance.collection('Users').doc(email).get();
+    setState(() {
+      email = prefs.getString('email');
+    });
+  }
+
   Widget build(BuildContext context) {
     var row1 = Row(
       mainAxisSize: MainAxisSize.min,

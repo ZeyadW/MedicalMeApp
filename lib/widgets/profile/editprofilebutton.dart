@@ -24,10 +24,10 @@ class Editprofilebutton extends StatelessWidget {
         ],
       ),
       child: FlatButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => EditProfilePage()),
+            MaterialPageRoute(builder: await (context) => EditProfilePage()),
           );
         },
         child: Text(
