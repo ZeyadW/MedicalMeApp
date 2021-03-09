@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project_mobile/Screens/viewjournals.dart';
+//import 'package:project_mobile/Screens/viewjournals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_mobile/models/diaries.dart' as d;
 
-final db = Firestore.instance;
+final db = FirebaseFirestore.instance;
 
 class DeleteJournal extends StatefulWidget {
   var diary = d.Diaries();

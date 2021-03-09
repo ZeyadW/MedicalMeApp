@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,7 +30,7 @@ class Contact {
     var email = prefs.getString('email');
     print("emaiilll in addd contact ");
     print(email);
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("Users")
         .doc(email)
         .collection('EmergecyContacts')
@@ -39,14 +39,14 @@ class Contact {
       'name': namecontroller.text,
       'phone': phonecontroller.text,
     });
-    print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu ");
+    // print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu ");
     return true;
   }
 
   Future<bool> deletecontact(contact) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var email = prefs.getString('email');
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("Users")
         .doc(email)
         .collection('EmergecyContacts')
