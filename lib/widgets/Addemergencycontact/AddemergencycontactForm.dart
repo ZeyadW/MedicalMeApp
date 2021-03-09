@@ -17,7 +17,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
   FocusNode myFocusNode;
   final namecontroller = TextEditingController();
   final phonecontroller = TextEditingController();
-  var _passwordVisible;
+  //var _passwordVisible;
   var email;
   var check;
   Contact ec = new Contact();
@@ -48,7 +48,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
   @override
   void initState() {
     www();
-    _passwordVisible = true;
+    // _passwordVisible = true;
     super.initState();
     myFocusNode = FocusNode();
   }
@@ -60,7 +60,7 @@ class AddemergencycontactFormState extends State<AddemergencycontactForm> {
   final validatePhone = RegExp(pattern);
   @override
   Widget build(BuildContext context) {
-    Widget okButton = FlatButton(
+    FlatButton(
       child: Text(
         "Ok",
       ),

@@ -25,7 +25,7 @@ class EditJournalState extends State<EditJournal> {
   var diary; //= d.Diaries();
   EditJournalState(this.diary);
 
-  Future<bool> UpdateJournal(diary, textcontroller, titlecontroller) async {
+  Future<bool> updateJournal(diary, textcontroller, titlecontroller) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email');
 
@@ -43,7 +43,7 @@ class EditJournalState extends State<EditJournal> {
     return true;
   }
 
-  Widget UpdateForm() {
+  Widget updateForm() {
     final textcontroller = TextEditingController(text: diary.text);
     final titlecontroller = TextEditingController(text: diary.title);
     return Form(
@@ -142,7 +142,7 @@ class EditJournalState extends State<EditJournal> {
 
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, display a Snackbar.
-                    UpdateJournal(this.diary, textcontroller, titlecontroller);
+                    updateJournal(this.diary, textcontroller, titlecontroller);
                   }
                   Navigator.push(
                     context,
@@ -175,7 +175,7 @@ class EditJournalState extends State<EditJournal> {
           ),
           color: Colors.white,
         ),
-        child: UpdateForm(),
+        child: updateForm(),
       ),
     ));
   }

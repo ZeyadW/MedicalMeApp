@@ -10,9 +10,9 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  @override
   var variable;
-  Future<bool> getUser(email) async {
+
+  Future<void> getUser(email) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email');
     variable =
@@ -22,6 +22,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     var row1 = Row(
       mainAxisSize: MainAxisSize.min,

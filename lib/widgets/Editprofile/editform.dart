@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
-import 'package:project_mobile/models/users.dart';
+//import 'package:project_mobile/models/users.dart';
 import 'package:project_mobile/Screens/EditProfile.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+//import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EditProfileForm extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class EditProfileFormState extends State<EditProfileForm> {
     myFocusNode = FocusNode();
   }
 
-  Future<bool> getUser() async {
+  Future<void> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email');
     this.username = prefs.getString('username');
@@ -43,7 +43,7 @@ class EditProfileFormState extends State<EditProfileForm> {
     });
   }
 
-  Future<bool> EditProfile(usernamecontroller, selectedDate, passwordcontroller,
+  Future<bool> editProfile(usernamecontroller, selectedDate, passwordcontroller,
       newpasswordcontroller) async {
     Widget okButton = FlatButton(
       child: Text(
@@ -57,15 +57,7 @@ class EditProfileFormState extends State<EditProfileForm> {
     );
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email');
-    /*DocumentSnapshot variable =
-        await Firestore.instance.collection('Users').document(email).get();*/
 
-    print('ay klam');
-    print(passwordcontroller.text);
-    print(newpasswordcontroller.text);
-    print(selectedDate);
-
-    print('ay klam');
     var passworduser = variable.get("password");
     if (passworduser == passwordcontroller.text) {
       await FirebaseFirestore.instance.collection("Users").doc(email).update({
@@ -88,11 +80,6 @@ class EditProfileFormState extends State<EditProfileForm> {
     return true;
   }
 
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
   String convertDateTimeDisplay(String date) {
@@ -355,7 +342,7 @@ class EditProfileFormState extends State<EditProfileForm> {
             child: Align(
               alignment: Alignment.topCenter,
               child: FlatButton(
-                onPressed: () => EditProfile(usernamecontroller, selectedDate,
+                onPressed: () => editProfile(usernamecontroller, selectedDate,
                     passwordcontroller, newpasswordcontroller),
                 child: Text('Edit'),
               ),

@@ -1,11 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'searchmedicine.dart';
-import 'package:project_mobile/Screens/Addmedicine.dart';
+//import 'searchmedicine.dart';
+//import 'package:project_mobile/Screens/Addmedicine.dart';
 import '../widgets/reminders/reminderlistview.dart';
 import '../widgets/reminders/Remindertitle.dart';
-import '../widgets/reminders/bodystate.dart';
+//import '../widgets/reminders/bodystate.dart';
 
 class _ViewReminders extends State<ViewReminders> {
   @override

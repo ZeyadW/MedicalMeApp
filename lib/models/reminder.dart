@@ -58,7 +58,7 @@ class Reminder {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     this.email = prefs.getString('email');
     String rname = _remindersTxtController.text;
-    print("Name:$rname,\n Type:$_rtypeItem \n days:$daysarray");
+    //print("Name:$rname,\n Type:$_rtypeItem \n days:$daysarray");
     await _db
         .collection('Users')
         .doc(email)
@@ -102,7 +102,7 @@ class Reminder {
 
   Future<bool> updatereminder(reminder, _remindersTxtController, _rtypeItem,
       daysarray, cStrt, cEnd, hrController) async {
-    print("hey");
+    // print("hey");
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     this.email = prefs.getString('email');
     await _db

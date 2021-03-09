@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 import 'package:project_mobile/models/emergencycontact.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,7 +49,7 @@ class Users {
     prefs.setString('username', username);
     prefs.setString('email', email);
 
-    await Firestore.instance.collection("Users").document(email).setData({
+    await FirebaseFirestore.instance.collection("Users").doc(email).set({
       'emergencyphone': emergencycontact,
       'emergencyname': emergencyname,
       'birthdate': date,
@@ -57,7 +57,7 @@ class Users {
       'username': username,
     });
 
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("Users")
         .doc(email)
         .collection('EmergecyContacts')
@@ -85,7 +85,7 @@ class Users {
   Future<bool> login1(email, password) async {
     //CollectionReference users = FirebaseFirestore.instance.collection('Users');
     DocumentSnapshot variable =
-        await Firestore.instance.collection('Users').document(email).get();
+        await FirebaseFirestore.instance.collection('Users').doc(email).get();
 
     if (variable.data() == null) {
       // Future.delayed(Duration(seconds: 100), () => false);

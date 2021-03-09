@@ -5,7 +5,6 @@ import 'package:project_mobile/Screens/welcomescreen%20(1).dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /*
-
 class HomeConnect extends StatefulWidget {
   @override
   _HomeConnectState createState() => _HomeConnectState();
@@ -27,12 +26,12 @@ class _HomeConnectState extends State<HomeConnect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isInternetOn ? AutoLogin() : buildAlertDialog(),
-      /*  body: isInternetOn
+     // body: isInternetOn ? AutoLogin() : buildAlertDialog(),
+        body: isInternetOn
           ? iswificonnected
               ? showWifi()
               : showMobile()
-          : buildAlertDialog(),*/
+          : buildAlertDialog(),
     );
   }
 

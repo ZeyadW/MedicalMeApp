@@ -21,11 +21,6 @@ class LoginFormState extends State<LoginForm> {
     myFocusNode = FocusNode();
   }
 
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   static final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
   static final validCharactersPassword = RegExp(r'^[a-zA-Z0-9_\-=@\.;]+$');
@@ -39,9 +34,6 @@ class LoginFormState extends State<LoginForm> {
     print("in chekkkkkkk user ");
     print(u);
     if (u != null) {
-      print("in  checkuser not null user");
-      print(u.toString());
-      print(u.username);
       return true;
     } else {
       print("in  checkuser null user");

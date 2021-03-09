@@ -4,7 +4,7 @@ import 'package:project_mobile/Screens/journal.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Addjournalbutton extends StatelessWidget {
-  List<String> dropDown = <String>["Default", "Diary title", "Date"];
+  //List<String> dropDown = <String>["Default", "Diary title", "Date"];
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,8 @@ class Addjournalbutton extends StatelessWidget {
         new DropdownButton<String>(
             underline: Container(),
             icon: Icon(Icons.sort, color: Colors.green),
-            items: dropDown.map<DropdownMenuItem<String>>((String value) {
+            items: <String>["Default", "Diary title", "Date"]
+                .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

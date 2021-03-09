@@ -8,7 +8,7 @@ import 'models/users.dart';
 import 'Screens/viewreminders.dart';
 //import 'Screens/viewjournals.dart';
 import 'Screens/searchfaq.dart';
-import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
+//import 'package:project_mobile/widgets/viewjournal/listalljournals.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
@@ -93,18 +93,7 @@ class HomePage extends StatelessWidget {
         ),
       ],
     );
-    var row4 = Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(padding: EdgeInsets.only(top: 5.0)),
-        Image(image: AssetImage('images/Icons- lab.png')),
-        Padding(padding: EdgeInsets.only(right: 7.0)),
-        Text(
-          'Analysis',
-          style: TextStyle(fontSize: 15, color: Colors.black),
-        ),
-      ],
-    );
+
     return Scaffold(
         drawer: Drawer(
           child: ListView(
@@ -184,10 +173,6 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: row3,
-              ),
-              Divider(),
-              ListTile(
-                title: row4,
               ),
               Divider(),
             ],

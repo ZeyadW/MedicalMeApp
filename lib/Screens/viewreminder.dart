@@ -51,7 +51,7 @@ class _ViewReminderState extends State<ViewReminder> {
     return true;
   }
 
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
 
   List hrstable;
 

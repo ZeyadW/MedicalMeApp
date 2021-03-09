@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_mobile/Screens/viewreminder.dart';
-import 'package:project_mobile/Screens/viewreminders.dart';
+//import 'package:project_mobile/Screens/viewreminders.dart';
 import 'package:project_mobile/models/reminder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,12 +27,12 @@ class _ReminderListviewState extends State<ReminderListview> {
     return true;
   }
 
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  // final FirebaseFirestore _db = FirebaseFirestore.instance;
   Reminder r = new Reminder();
   var email;
-  void _deletereminder(DocumentSnapshot snap) {
+  /*void _deletereminder(DocumentSnapshot snap) {
     _db.collection("reminders").doc(snap.id).delete();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

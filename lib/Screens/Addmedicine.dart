@@ -16,7 +16,7 @@ class Addmedicine extends StatefulWidget {
 
 class _AddmedicineState extends State<Addmedicine> {
   Reminder r = new Reminder();
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   final TextEditingController _remindersTxtController = TextEditingController();
   final myController = TextEditingController();
   List hrstable;
@@ -143,7 +143,7 @@ class _AddmedicineState extends State<Addmedicine> {
                             borderRadius: BorderRadius.circular(21.0),
                           )),
                       validator: (value) {
-                        if (value.isEmpty || value == 0) {
+                        if (value.isEmpty) {
                           return 'Please enter a number';
                         }
                         return null;
